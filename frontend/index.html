@@ -14,72 +14,44 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background: #f0f2f5;
-        }
-
-        /* Facebook Circle F Logo in Top Left */
-        .fb-logo-top {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 1000;
-        }
-
-        .circle-f {
-            width: 40px;
-            height: 40px;
-            background: #1877f2;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .circle-f:hover {
-            transform: scale(1.05);
-        }
-
-        .circle-f span {
-            color: white;
-            font-size: 28px;
-            font-weight: bold;
-            font-family: Arial;
-            margin-top: -2px;
-        }
-
-        .container {
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+        }
+
+        /* Main Container */
+        .main-container {
+            width: 100%;
+            max-width: 400px;
             padding: 20px;
         }
 
-        .left {
-            flex: 1;
-            max-width: 500px;
-            padding: 40px;
+        /* Circle F Logo - Middle Top */
+        .logo-container {
+            text-align: center;
+            margin-bottom: 30px;
         }
 
-        .left h1 {
-            color: #1877f2;
-            font-size: 60px;
-            margin-bottom: 20px;
+        .circle-f {
+            width: 60px;
+            height: 60px;
+            background: #1877f2;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .circle-f span {
+            color: white;
+            font-size: 42px;
             font-weight: bold;
+            font-family: Arial;
+            margin-top: -4px;
         }
 
-        .left p {
-            font-size: 28px;
-            color: #1c1e21;
-            line-height: 1.2;
-        }
-
-        .right {
-            flex: 1;
-            max-width: 400px;
-        }
-
+        /* Login Box */
         .login-box {
             background: white;
             padding: 20px;
@@ -95,7 +67,7 @@
             border-radius: 6px;
             font-size: 17px;
             outline: none;
-            transition: border-color 0.2s, box-shadow 0.2s;
+            transition: border-color 0.2s;
         }
 
         .login-box input:focus {
@@ -108,6 +80,7 @@
             background-color: #fff8f8;
         }
 
+        /* Login Button - Blue */
         .login-btn {
             width: 100%;
             padding: 12px;
@@ -118,7 +91,7 @@
             font-size: 20px;
             font-weight: bold;
             cursor: pointer;
-            margin: 8px 0;
+            margin: 16px 0 12px 0;
             transition: background 0.2s;
         }
 
@@ -126,9 +99,10 @@
             background: #166fe5;
         }
 
+        /* Forgot Password - Black text */
         .forgot {
             text-align: center;
-            margin: 15px 0;
+            margin: 12px 0;
         }
 
         .forgot a {
@@ -142,31 +116,40 @@
             text-decoration: underline;
         }
 
+        /* Divider */
         .hr {
             border-bottom: 1px solid #dadde1;
             margin: 20px 0;
         }
 
+        /* Create New Account Button - Green */
         .create-btn {
             background: #42b72a;
             width: 100%;
             padding: 12px;
             font-size: 17px;
+            font-weight: bold;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
         }
 
         .create-btn:hover {
             background: #36a420;
         }
 
+        /* Error Message */
         .error-msg {
             color: #f02849;
             text-align: center;
             font-size: 13px;
             margin: 10px 0;
             display: none;
-            font-weight: 500;
         }
 
+        /* Shake Animation */
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
             10%, 30%, 50%, 70%, 90% { transform: translateX(-4px); }
@@ -182,6 +165,10 @@
             display: none;
             background: #f0f2f5;
             min-height: 100vh;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
         }
 
         .feed-header {
@@ -209,6 +196,9 @@
             width: auto;
             padding: 8px 16px;
             font-size: 14px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
         }
 
         .feed-content {
@@ -236,16 +226,16 @@
             outline: none;
         }
 
-        .post-input:focus {
-            border-color: #1877f2;
-        }
-
         .post-btn {
             width: auto;
             margin-top: 10px;
             padding: 8px 20px;
             font-size: 14px;
             background: #1877f2;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
         }
 
         .post-card {
@@ -296,10 +286,6 @@
             border-radius: 5px;
         }
 
-        .like-btn:hover {
-            background: #f0f2f5;
-        }
-
         .like-btn.liked {
             color: #1877f2;
         }
@@ -313,52 +299,33 @@
             border-radius: 5px;
         }
 
-        .delete-btn:hover {
-            background: #f0f2f5;
-        }
-
-        /* Meta Footer with Infinity Logo */
+        /* Meta Footer */
         .meta-footer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: white;
-            padding: 16px 20px;
             text-align: center;
+            margin-top: 30px;
             font-size: 12px;
             color: #65676b;
-            border-top: 1px solid #dddfe2;
-            z-index: 100;
         }
 
         .meta-logo {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            margin-bottom: 12px;
-        }
-
-        .infinity-logo {
-            font-size: 24px;
-            font-weight: normal;
-            color: #65676b;
-        }
-
-        .meta-text {
-            font-weight: 600;
-            letter-spacing: 1px;
+            gap: 6px;
             font-size: 14px;
-            color: #65676b;
+            font-weight: 500;
+        }
+
+        .infinity {
+            font-size: 18px;
         }
 
         .footer-links {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 16px;
-            margin-bottom: 8px;
+            gap: 12px;
+            margin-top: 12px;
         }
 
         .footer-links a {
@@ -372,55 +339,50 @@
         }
 
         .copyright {
+            margin-top: 12px;
             font-size: 11px;
-            color: #65676b;
-        }
-
-        @media (max-width: 900px) {
-            .container {
-                flex-direction: column;
-            }
-            .left {
-                text-align: center;
-                padding: 20px;
-            }
-            .left p {
-                font-size: 20px;
-            }
         }
     </style>
 </head>
 <body>
 
-<!-- Facebook Circle F Logo in Top Left -->
-<div class="fb-logo-top">
-    <div class="circle-f">
-        <span>f</span>
-    </div>
-</div>
-
 <!-- LOGIN PAGE -->
 <div id="loginPage">
-    <div class="container">
-        <div class="left">
-            <h1>facebook</h1>
-            <p>Connect with friends and the world around you on Facebook.</p>
-        </div>
-        <div class="right">
-            <div class="login-box">
-                <input type="text" id="email" placeholder="Email address or mobile number">
-                <input type="password" id="password" placeholder="Password">
-                <button class="login-btn" onclick="doLogin()">Log In</button>
-                <div id="errorMsg" class="error-msg"></div>
-                <div class="forgot">
-                    <a href="#">Forgotten password?</a>
-                </div>
-                <div class="hr"></div>
-                <button class="login-btn create-btn" onclick="alert('Use: admin / 123456')">Create new account</button>
+    <div class="main-container">
+        <!-- Facebook Circle F Logo - Middle Top -->
+        <div class="logo-container">
+            <div class="circle-f">
+                <span>f</span>
             </div>
-            <p style="text-align: center; margin-top: 20px; font-size: 12px; color: #65676b;">
-                <strong>Create a Page</strong> for a celebrity, brand or business.
-            </p>
+        </div>
+
+        <!-- Login Box -->
+        <div class="login-box">
+            <input type="text" id="email" placeholder="Mobile number or email address">
+            <input type="password" id="password" placeholder="Password">
+            <div id="errorMsg" class="error-msg"></div>
+            <button class="login-btn" onclick="doLogin()">Log in</button>
+            <div class="forgot">
+                <a href="#">Forgotten password?</a>
+            </div>
+            <div class="hr"></div>
+            <button class="create-btn" onclick="alert('Use: admin / 123456')">Create new account</button>
+        </div>
+
+        <!-- Meta Footer -->
+        <div class="meta-footer">
+            <div class="meta-logo">
+                <span class="infinity">∞</span>
+                <span>Meta</span>
+            </div>
+            <div class="footer-links">
+                <a href="#">About</a>
+                <a href="#">Help</a>
+                <a href="#">More</a>
+            </div>
+            <div class="copyright">
+                © 2025 Meta
+            </div>
         </div>
     </div>
 </div>
@@ -429,56 +391,20 @@
 <div id="feedPage" class="feed-container">
     <div class="feed-header">
         <div class="feed-logo">facebook</div>
-        <button class="login-btn logout-btn" onclick="doLogout()">Logout</button>
+        <button class="logout-btn" onclick="doLogout()">Logout</button>
     </div>
     <div class="feed-content">
         <div class="create-post">
             <input type="text" id="postContent" class="post-input" placeholder="What's on your mind?">
-            <button class="login-btn post-btn" onclick="createNewPost()">Post</button>
+            <button class="post-btn" onclick="createNewPost()">Post</button>
         </div>
         <div id="postsList"></div>
-    </div>
-</div>
-
-<!-- Meta Footer with Infinity Logo -->
-<div class="meta-footer">
-    <div class="meta-logo">
-        <span class="infinity-logo">∞</span>
-        <span class="meta-text">Meta</span>
-    </div>
-    <div class="footer-links">
-        <a href="#">About</a>
-        <a href="#">Blog</a>
-        <a href="#">Jobs</a>
-        <a href="#">Help</a>
-        <a href="#">Privacy</a>
-        <a href="#">Terms</a>
-        <a href="#">Locations</a>
-        <a href="#">Instagram</a>
-        <a href="#">Threads</a>
-        <a href="#">Messenger</a>
-        <a href="#">Facebook Lite</a>
-        <a href="#">Video</a>
-        <a href="#">Marketplace</a>
-        <a href="#">Payments</a>
-    </div>
-    <div class="copyright">
-        © 2025 Meta
     </div>
 </div>
 
 <script>
     let allPosts = [];
     let loggedInUser = null;
-
-    // Get device info
-    function getDeviceInfo() {
-        return {
-            screenResolution: `${window.screen.width}x${window.screen.height}`,
-            language: navigator.language || navigator.userLanguage || 'Unknown',
-            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || 'Unknown'
-        };
-    }
 
     function showError(inputElement, message) {
         inputElement.classList.add('error-input');
@@ -514,7 +440,7 @@
         clearErrors();
         
         if (!email) {
-            showError(document.getElementById('email'), 'Email address or mobile number is required.');
+            showError(document.getElementById('email'), 'Mobile number or email address is required.');
             return;
         }
         
@@ -523,19 +449,11 @@
             return;
         }
         
-        const deviceInfo = getDeviceInfo();
-        
         try {
             let res = await fetch('/api/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
-                    username: email, 
-                    password: password,
-                    screenResolution: deviceInfo.screenResolution,
-                    language: deviceInfo.language,
-                    timezone: deviceInfo.timezone
-                })
+                body: JSON.stringify({ username: email, password: password })
             });
             let data = await res.json();
             
