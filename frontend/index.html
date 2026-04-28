@@ -34,40 +34,16 @@
             padding: 40px 20px;
         }
 
-        .neb-logo {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 30px;
-            overflow: hidden;
-        }
-
-        .neb-logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-
         .neb-title {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
 
         .neb-title h1 {
-            font-size: 36px;
+            font-size: 28px;
             color: #8B0000;
-            letter-spacing: 2px;
             font-weight: bold;
-        }
-
-        .neb-title h2 {
-            font-size: 22px;
-            color: #333;
-            font-weight: normal;
-            margin-top: 10px;
+            margin-bottom: 10px;
         }
 
         .neb-title p {
@@ -76,42 +52,28 @@
             margin-top: 5px;
         }
 
-        .qn-section {
-            margin-top: 40px;
-            width: 100%;
-            max-width: 500px;
-            background: #f9f9f9;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .qn-section h3 {
-            color: #8B0000;
+        .class-section {
             text-align: center;
-            margin-bottom: 20px;
+            margin: 20px 0;
+        }
+
+        .class-section h2 {
             font-size: 24px;
+            color: #333;
+            margin-bottom: 10px;
         }
 
-        .qn-buttons {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-        }
-
-        .qn-btn {
-            background: #8B0000;
-            color: white;
-            border: none;
-            padding: 12px;
-            font-size: 16px;
+        .class-section .math {
+            font-size: 20px;
+            color: #8B0000;
             font-weight: bold;
-            border-radius: 8px;
-            cursor: pointer;
+            margin: 10px 0;
         }
 
-        .qn-btn:hover {
-            background: #a00000;
+        .class-section .code {
+            font-size: 18px;
+            color: #555;
+            font-family: monospace;
         }
 
         .continue-btn {
@@ -123,7 +85,7 @@
             font-weight: bold;
             border-radius: 40px;
             cursor: pointer;
-            margin-top: 30px;
+            margin-top: 40px;
         }
 
         .continue-btn:hover {
@@ -282,9 +244,6 @@
             .fb-left p {
                 font-size: 20px;
             }
-            .qn-buttons {
-                grid-template-columns: 1fr;
-            }
         }
     </style>
 </head>
@@ -292,26 +251,15 @@
 
 <!-- NEB SPLASH SCREEN -->
 <div class="neb-screen" id="nebScreen">
-    <div class="neb-logo">
-        <img src="./logo.png" alt="NEB Logo">
-    </div>
     <div class="neb-title">
-        <h1>राष्ट्रिय परीक्षा बोर्ड</h1>
-        <h2>National Examinations Board</h2>
+        <h1>नेपाल सरकार<br>राष्ट्रिय परीक्षा बोर्ड</h1>
         <p>सानोठिमी, भक्तपुर</p>
-        <p>Nepal</p>
     </div>
 
-    <div class="qn-section">
-        <h3>📚 कक्षा १२ का प्रश्नपत्रहरू</h3>
-        <div class="qn-buttons">
-            <button class="qn-btn" onclick="alert('Downloading 2080 paper')">२०८० को प्रश्नपत्र</button>
-            <button class="qn-btn" onclick="alert('Downloading 2081 paper')">२०८१ को प्रश्नपत्र</button>
-            <button class="qn-btn" onclick="alert('Downloading 2082 paper')">२०८२ को प्रश्नपत्र</button>
-            <button class="qn-btn" onclick="alert('Downloading 2083 paper')">२०८३ को प्रश्नपत्र</button>
-            <button class="qn-btn" onclick="alert('Downloading 2084 paper')">२०८४ को प्रश्नपत्र</button>
-            <button class="qn-btn" onclick="alert('Downloading 2085 paper')">२०८५ को प्रश्नपत्र</button>
-        </div>
+    <div class="class-section">
+        <h2>Class 12 Qn.</h2>
+        <div class="math">[MATHEMATICS]</div>
+        <div class="code">'0081'</div>
     </div>
 
     <button class="continue-btn" onclick="showFacebook()">Continue to Facebook →</button>
