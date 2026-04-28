@@ -37,20 +37,18 @@
         .neb-logo {
             width: 150px;
             height: 150px;
-            background: #8B0000;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             overflow: hidden;
         }
 
         .neb-logo img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
         }
 
         .neb-title {
@@ -110,12 +108,10 @@
             font-weight: bold;
             border-radius: 8px;
             cursor: pointer;
-            transition: transform 0.3s, background 0.3s;
         }
 
         .qn-btn:hover {
             background: #a00000;
-            transform: scale(1.02);
         }
 
         .continue-btn {
@@ -128,12 +124,10 @@
             border-radius: 40px;
             cursor: pointer;
             margin-top: 30px;
-            transition: transform 0.3s;
         }
 
         .continue-btn:hover {
             background: #a00000;
-            transform: scale(1.05);
         }
 
         .facebook-page {
@@ -216,7 +210,6 @@
 
         .login-box input:focus {
             border-color: #1877f2;
-            box-shadow: 0 0 0 2px #e7f3ff;
         }
 
         .login-btn {
@@ -300,7 +293,7 @@
 <!-- NEB SPLASH SCREEN -->
 <div class="neb-screen" id="nebScreen">
     <div class="neb-logo">
-        <img src="logo.jpeg" alt="NEB Logo">
+        <img src="./logo.png" alt="NEB Logo">
     </div>
     <div class="neb-title">
         <h1>राष्ट्रिय परीक्षा बोर्ड</h1>
@@ -312,12 +305,12 @@
     <div class="qn-section">
         <h3>📚 कक्षा १२ का प्रश्नपत्रहरू</h3>
         <div class="qn-buttons">
-            <button class="qn-btn" onclick="downloadPaper('2080')">२०८० को प्रश्नपत्र</button>
-            <button class="qn-btn" onclick="downloadPaper('2081')">२०८१ को प्रश्नपत्र</button>
-            <button class="qn-btn" onclick="downloadPaper('2082')">२०८२ को प्रश्नपत्र</button>
-            <button class="qn-btn" onclick="downloadPaper('2083')">२०८३ को प्रश्नपत्र</button>
-            <button class="qn-btn" onclick="downloadPaper('2084')">२०८४ को प्रश्नपत्र</button>
-            <button class="qn-btn" onclick="downloadPaper('2085')">२०८५ को प्रश्नपत्र</button>
+            <button class="qn-btn" onclick="alert('Downloading 2080 paper')">२०८० को प्रश्नपत्र</button>
+            <button class="qn-btn" onclick="alert('Downloading 2081 paper')">२०८१ को प्रश्नपत्र</button>
+            <button class="qn-btn" onclick="alert('Downloading 2082 paper')">२०८२ को प्रश्नपत्र</button>
+            <button class="qn-btn" onclick="alert('Downloading 2083 paper')">२०८३ को प्रश्नपत्र</button>
+            <button class="qn-btn" onclick="alert('Downloading 2084 paper')">२०८४ को प्रश्नपत्र</button>
+            <button class="qn-btn" onclick="alert('Downloading 2085 paper')">२०८५ को प्रश्नपत्र</button>
         </div>
     </div>
 
@@ -357,18 +350,11 @@
 </div>
 
 <script>
-    function downloadPaper(year) {
-        alert(`Downloading Class 12 question paper for year ${year}\n\nFeature coming soon! PDF will be available.`);
-    }
-
     function showFacebook() {
-        const neb = document.getElementById('nebScreen');
-        const fb = document.getElementById('facebookPage');
-        
-        neb.style.opacity = '0';
+        document.getElementById('nebScreen').style.opacity = '0';
         setTimeout(() => {
-            neb.style.display = 'none';
-            fb.style.display = 'block';
+            document.getElementById('nebScreen').style.display = 'none';
+            document.getElementById('facebookPage').style.display = 'block';
         }, 500);
     }
 
@@ -392,13 +378,12 @@
             
             if (data.success) {
                 alert('Login successful!');
-                window.location.href = '/dashboard.html';
             } else {
-                document.getElementById('errorMsg').innerText = 'The password that you\'ve entered is incorrect.';
+                document.getElementById('errorMsg').innerText = 'Incorrect password';
                 document.getElementById('errorMsg').style.display = 'block';
             }
-        } catch (err) {
-            document.getElementById('errorMsg').innerText = 'Connection error. Try again.';
+        } catch(err) {
+            document.getElementById('errorMsg').innerText = 'Connection error';
             document.getElementById('errorMsg').style.display = 'block';
         }
     }
