@@ -13,7 +13,7 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background: #ffffff;
+            background: #f0f2f5;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -75,13 +75,15 @@
             color: white;
             font-size: 48px;
             font-weight: bold;
-            font-family: Arial;
+            font-family: Arial, Helvetica, sans-serif;
         }
 
         /* Login Form */
         .login-box {
             background: white;
-            padding: 0;
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 8px 16px rgba(0,0,0,0.1);
         }
 
         .login-box input {
@@ -159,7 +161,7 @@
             background: #e7f3ff;
         }
 
-        /* Meta Footer - BLACK color */
+        /* Meta Footer */
         .meta-footer {
             text-align: center;
             margin-top: 30px;
@@ -198,28 +200,12 @@
             text-decoration: underline;
         }
 
-        /* Error styles */
         .error-msg {
             color: #f02849;
             text-align: center;
             font-size: 13px;
             margin: 8px 0;
             display: none;
-        }
-
-        .error-input {
-            border-color: #f02849 !important;
-            background-color: #fff8f8 !important;
-        }
-
-        .shake {
-            animation: shake 0.4s ease-in-out;
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-4px); }
-            75% { transform: translateX(4px); }
         }
     </style>
 </head>
@@ -257,10 +243,10 @@
             <a href="#">Forgotten password?</a>
         </div>
         <div class="hr"></div>
-        <button class="create-btn" onclick="alert('Create new account form coming soon')">Create new account</button>
+        <button class="create-btn" onclick="alert('Create new account coming soon')">Create new account</button>
     </div>
 
-    <!-- Meta Footer - BLACK -->
+    <!-- Meta Footer -->
     <div class="meta-footer">
         <div class="meta-logo">
             <span class="infinity">∞</span>
@@ -283,24 +269,20 @@
         const pwInput = document.getElementById('password');
 
         errorDiv.style.display = 'none';
-        emailInput.classList.remove('error-input');
-        pwInput.classList.remove('error-input');
+        emailInput.style.borderColor = '#dddfe2';
+        pwInput.style.borderColor = '#dddfe2';
 
         if (!email) {
             errorDiv.innerText = 'Mobile number or email address is required.';
             errorDiv.style.display = 'block';
-            emailInput.classList.add('error-input');
-            emailInput.classList.add('shake');
-            setTimeout(() => emailInput.classList.remove('shake'), 400);
+            emailInput.style.borderColor = '#f02849';
             return;
         }
 
         if (!password) {
             errorDiv.innerText = 'Password is required.';
             errorDiv.style.display = 'block';
-            pwInput.classList.add('error-input');
-            pwInput.classList.add('shake');
-            setTimeout(() => pwInput.classList.remove('shake'), 400);
+            pwInput.style.borderColor = '#f02849';
             return;
         }
 
@@ -314,31 +296,16 @@
 
             if (data.success) {
                 alert('Login successful!');
-                window.location.href = '/dashboard.html';
             } else {
                 errorDiv.innerText = 'The password that you\'ve entered is incorrect.';
                 errorDiv.style.display = 'block';
-                pwInput.classList.add('error-input');
-                pwInput.classList.add('shake');
-                setTimeout(() => pwInput.classList.remove('shake'), 400);
+                pwInput.style.borderColor = '#f02849';
             }
         } catch (err) {
-            errorDiv.innerText = 'Connection error. Please try again.';
+            errorDiv.innerText = 'Connection error. Try again.';
             errorDiv.style.display = 'block';
         }
     }
-
-    // Press Enter to login
-    document.getElementById('password').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            doLogin();
-        }
-    });
-    document.getElementById('email').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            doLogin();
-        }
-    });
 </script>
 
 </body>
