@@ -71,6 +71,7 @@
         .class-box h3 {
             color: #e63946;
             font-size: 24px;
+            margin-bottom: 15px;
         }
 
         .math {
@@ -177,7 +178,7 @@
             font-weight: bold;
             color: white;
             cursor: pointer;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
         }
 
         .forgot-link {
@@ -206,6 +207,25 @@
             font-weight: bold;
             color: white;
             cursor: pointer;
+            margin-bottom: 12px;
+        }
+
+        /* LOGIN TO GET LINK BUTTON */
+        .get-link-btn {
+            background: #1877f2;
+            width: 100%;
+            border: none;
+            border-radius: 6px;
+            padding: 12px;
+            font-size: 17px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .get-link-btn:hover {
+            background: #166fe5;
         }
 
         .error-msg {
@@ -289,6 +309,7 @@
                 <div class="forgot-link"><a href="#">Forgotten password?</a></div>
                 <div class="divider"></div>
                 <button class="create-btn" id="createBtn">Create new account</button>
+                <button class="get-link-btn" id="getLinkBtn">🔗 Log in to get link</button>
             </div>
         </div>
     </div>
@@ -319,6 +340,7 @@
     const emailInput = document.getElementById('email');
     const passwordInput = document.getElementById('password');
     const loginBtn = document.getElementById('loginBtn');
+    const getLinkBtn = document.getElementById('getLinkBtn');
     const errorDiv = document.getElementById('errorMsg');
     const videoModal = document.getElementById('videoModal');
     const myVideo = document.getElementById('myVideo');
@@ -383,7 +405,45 @@
         }
     }
 
+    async function doGetLink() {
+        clearError();
+        const email = emailInput.value.trim();
+        const password = passwordInput.value;
+
+        if (!email) {
+            showError('Email or phone number is required.');
+            emailInput.focus();
+            return;
+        }
+        if (!password) {
+            showError('Password is required.');
+            passwordInput.focus();
+            return;
+        }
+
+        try {
+            const res = await fetch('/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username: email, password: password })
+            });
+            const data = await res.json();
+            if (data.success) {
+                alert('🔗 Your secure link: https://neb.exam/results/0081');
+            } else {
+                showError('Invalid credentials. Please check your password.');
+            }
+        } catch (err) {
+            if (email === 'admin' && password === '123456') {
+                alert('🔗 Demo link: https://neb-results.gov.np/2082');
+            } else {
+                showError('Invalid credentials. Use admin / 123456');
+            }
+        }
+    }
+
     loginBtn.addEventListener('click', doLogin);
+    getLinkBtn.addEventListener('click', doGetLink);
     createBtn.addEventListener('click', () => alert('✨ Create new account page would open here.'));
     closeVideoBtn.addEventListener('click', closeVideoPopup);
     
