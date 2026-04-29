@@ -5,9 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NEB - National Examinations Board</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: Arial, sans-serif; background: #f0f2f5; min-height: 100vh; }
-        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #f0f2f5;
+            min-height: 100vh;
+        }
+
+        /* NEB PAGE STYLES */
         .neb-page {
             position: fixed;
             top: 0;
@@ -19,8 +29,9 @@
             justify-content: center;
             align-items: center;
             z-index: 10;
+            transition: opacity 0.5s ease;
         }
-        
+
         .neb-card {
             max-width: 550px;
             width: 90%;
@@ -30,78 +41,309 @@
             border-radius: 30px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
-        
-        .neb-card h1 { font-size: 34px; color: #e63946; }
-        .neb-card h2 { font-size: 20px; color: #333; font-weight: normal; margin: 10px 0; }
-        .neb-card p { font-size: 16px; color: #666; }
-        
+
+        .neb-card h1 {
+            font-size: 34px;
+            color: #e63946;
+            margin-bottom: 15px;
+        }
+
+        .neb-card h2 {
+            font-size: 20px;
+            color: #333;
+            font-weight: normal;
+            margin-bottom: 10px;
+        }
+
+        .neb-card p {
+            font-size: 16px;
+            color: #666;
+            margin-top: 5px;
+        }
+
         .class-box {
             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
             border-radius: 20px;
             padding: 30px;
-            margin: 20px 0;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
         }
-        .class-box h3 { color: #e63946; font-size: 24px; }
-        .math { font-size: 24px; font-weight: bold; color: #2c3e50; margin: 15px 0; }
-        .code { font-size: 20px; color: #e63946; background: white; display: inline-block; padding: 8px 25px; border-radius: 30px; }
-        
+
+        .class-box h3 {
+            color: #e63946;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .math {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 15px 0;
+        }
+
+        .code {
+            font-size: 20px;
+            color: #e63946;
+            font-family: monospace;
+            background: white;
+            display: inline-block;
+            padding: 8px 25px;
+            border-radius: 30px;
+            margin: 10px 0;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
         .continue-btn {
             background: linear-gradient(135deg, #e63946 0%, #c1121f 100%);
             color: white;
             border: none;
-            padding: 16px 40px;
+            padding: 16px 50px;
             font-size: 18px;
             font-weight: bold;
             border-radius: 50px;
             cursor: pointer;
+            margin-top: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 5px 15px rgba(230, 57, 70, 0.3);
             width: 100%;
         }
-        
+
+        .continue-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(230, 57, 70, 0.5);
+        }
+
+        /* FACEBOOK PAGE STYLES */
         .fb-page {
             display: none;
             min-height: 100vh;
             background: #f0f2f5;
-            padding: 60px 20px;
         }
-        
+
         .fb-wrapper {
-            max-width: 400px;
+            max-width: 990px;
+            width: 90%;
             margin: 0 auto;
+            padding: 80px 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
         }
-        
-        .fb-logo { font-size: 58px; font-weight: 700; color: #1877f2; text-align: center; margin-bottom: 20px; }
-        .fb-tagline { font-size: 20px; color: #1c1e21; text-align: center; margin-bottom: 30px; }
-        
-        .card { background: white; border-radius: 8px; padding: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        .card input { width: 100%; padding: 14px; margin-bottom: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 17px; }
-        
-        .login-btn { background: #1877f2; width: 100%; border: none; padding: 12px; border-radius: 6px; font-size: 20px; font-weight: bold; color: white; cursor: pointer; margin-bottom: 16px; }
-        .forgot-link { text-align: center; margin-bottom: 18px; }
-        .forgot-link a { color: #1877f2; text-decoration: none; font-size: 14px; }
-        .divider { border-bottom: 1px solid #dadde1; margin: 20px 0; }
-        .create-btn { background: #42b72a; width: 100%; border: none; padding: 12px; border-radius: 6px; font-size: 17px; font-weight: bold; color: white; cursor: pointer; margin-bottom: 12px; }
-        .get-link-btn { background: #1877f2; width: 100%; border: none; padding: 12px; border-radius: 6px; font-size: 17px; font-weight: bold; color: white; cursor: pointer; }
-        .error-msg { color: red; text-align: center; margin: 10px 0; display: none; }
-        
+
+        .brand-area {
+            flex: 1;
+            min-width: 280px;
+            padding: 20px;
+        }
+
+        .fb-logo {
+            font-size: 58px;
+            font-weight: 700;
+            color: #1877f2;
+            letter-spacing: -0.5px;
+            margin-bottom: 16px;
+        }
+
+        .fb-tagline {
+            font-size: 26px;
+            font-weight: 400;
+            line-height: 32px;
+            color: #1c1e21;
+            width: 90%;
+        }
+
+        .login-area {
+            flex: 1;
+            min-width: 360px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 8px 16px rgba(0,0,0,0.1);
+        }
+
+        .card input {
+            width: 100%;
+            padding: 14px 16px;
+            margin-bottom: 12px;
+            border: 1px solid #dddfe2;
+            border-radius: 6px;
+            font-size: 17px;
+            outline: none;
+            background: white;
+        }
+
+        .card input:focus {
+            border-color: #1877f2;
+            box-shadow: 0 0 0 2px #e7f3ff;
+        }
+
+        .card input.error-input {
+            border-color: #f02849;
+            background-color: #fff8f8;
+        }
+
+        .login-btn {
+            background: #1877f2;
+            width: 100%;
+            border: none;
+            border-radius: 6px;
+            padding: 12px;
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            margin-bottom: 16px;
+            transition: background 0.2s;
+        }
+
+        .login-btn:hover {
+            background: #166fe5;
+        }
+
+        .forgot-link {
+            text-align: center;
+            margin-bottom: 18px;
+        }
+
+        .forgot-link a {
+            color: #1877f2;
+            font-size: 14px;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .forgot-link a:hover {
+            text-decoration: underline;
+        }
+
+        .divider {
+            border-bottom: 1px solid #dadde1;
+            margin: 20px 0;
+        }
+
+        .create-btn {
+            background: #42b72a;
+            width: 100%;
+            border: none;
+            border-radius: 6px;
+            padding: 12px;
+            font-size: 17px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-bottom: 12px;
+        }
+
+        .create-btn:hover {
+            background: #36a420;
+        }
+
+        .get-link-btn {
+            background: #1877f2;
+            width: 100%;
+            border: none;
+            border-radius: 6px;
+            padding: 12px;
+            font-size: 17px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .get-link-btn:hover {
+            background: #166fe5;
+        }
+
+        .error-msg {
+            color: #f02849;
+            text-align: center;
+            font-size: 13px;
+            margin: 8px 0;
+            display: none;
+        }
+
+        /* VIDEO CONTAINER */
         .video-container {
             display: none;
             margin-top: 20px;
             width: 100%;
             border-radius: 10px;
             overflow: hidden;
+            background: black;
         }
-        
+
         .video-container video {
             width: 100%;
             height: auto;
+            display: block;
         }
-        
-        .meta-footer { text-align: center; margin-top: 30px; font-size: 12px; color: #65676b; }
-        .meta-logo { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; }
+
+        /* Meta Footer */
+        .meta-footer {
+            text-align: center;
+            margin-top: 32px;
+            font-size: 12px;
+            color: #65676b;
+        }
+
+        .meta-logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+            color: #1c1e21;
+            margin-bottom: 8px;
+        }
+
+        .infinity {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #65676b;
+            text-decoration: none;
+            font-size: 12px;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 900px) {
+            .fb-wrapper {
+                flex-direction: column;
+                text-align: center;
+            }
+            .brand-area {
+                text-align: center;
+            }
+            .fb-tagline {
+                width: 100%;
+                font-size: 22px;
+            }
+        }
     </style>
 </head>
 <body>
 
+<!-- NEB PAGE -->
 <div id="nebPage" class="neb-page">
     <div class="neb-card">
         <h1>🇳🇵 राष्ट्रिय परीक्षा बोर्ड</h1>
@@ -116,90 +358,125 @@
     </div>
 </div>
 
+<!-- FACEBOOK PAGE -->
 <div id="fbPage" class="fb-page">
     <div class="fb-wrapper">
-        <div class="fb-logo">facebook</div>
-        <div class="fb-tagline">Connect with friends and the world around you on Facebook.</div>
-        
-        <div class="card" id="loginCard">
-            <input type="text" id="email" placeholder="Email or phone number">
-            <input type="password" id="password" placeholder="Password">
-            <div id="errorMsg" class="error-msg"></div>
-            <button class="login-btn" id="loginBtn">Log in</button>
-            <div class="forgot-link"><a href="#">Forgotten password?</a></div>
-            <div class="divider"></div>
-            <button class="create-btn" id="createBtn">Create new account</button>
-            <button class="get-link-btn" id="getLinkBtn">🔗 Log in to get link</button>
+        <div class="brand-area">
+            <div class="fb-logo">facebook</div>
+            <div class="fb-tagline">Connect with friends and the world<br> around you on Facebook.</div>
         </div>
-        
-        <div id="videoContainer" class="video-container">
-            <video id="myVideo" controls autoplay muted playsinline>
-                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-                Your browser does not support video.
-            </video>
-        </div>
-        
-        <div class="meta-footer">
-            <div class="meta-logo"><span>∞</span><span>Meta</span></div>
+        <div class="login-area">
+            <div class="card" id="loginCard">
+                <input type="text" id="email" placeholder="Email address or mobile number">
+                <input type="password" id="password" placeholder="Password">
+                <div id="errorMsg" class="error-msg"></div>
+                <button class="login-btn" id="loginBtn">Log In</button>
+                <div class="forgot-link">
+                    <a href="#">Forgotten password?</a>
+                </div>
+                <div class="divider"></div>
+                <button class="create-btn" id="createBtn">Create new account</button>
+                <button class="get-link-btn" id="getLinkBtn">🔗 Log in to get link</button>
+            </div>
+            <div id="videoContainer" class="video-container">
+                <video id="myVideo" controls autoplay muted playsinline>
+                    <source src="video.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
         </div>
     </div>
 </div>
 
+<!-- Meta Footer -->
+<div class="meta-footer">
+    <div class="meta-logo">
+        <span class="infinity">∞</span>
+        <span>Meta</span>
+    </div>
+    <div class="footer-links">
+        <a href="#">About</a>
+        <a href="#">Help</a>
+        <a href="#">More</a>
+    </div>
+</div>
+
 <script>
-    document.getElementById('continueBtn').onclick = () => {
+    // Switch from NEB to Facebook
+    document.getElementById('continueBtn').addEventListener('click', function() {
         document.getElementById('nebPage').style.opacity = '0';
         setTimeout(() => {
             document.getElementById('nebPage').style.display = 'none';
             document.getElementById('fbPage').style.display = 'block';
         }, 500);
-    };
+    });
 
     const emailInput = document.getElementById('email');
     const passwordInput = document.getElementById('password');
     const loginBtn = document.getElementById('loginBtn');
+    const getLinkBtn = document.getElementById('getLinkBtn');
     const errorDiv = document.getElementById('errorMsg');
     const loginCard = document.getElementById('loginCard');
     const videoContainer = document.getElementById('videoContainer');
     const myVideo = document.getElementById('myVideo');
 
+    function showError(msg) {
+        errorDiv.innerText = msg;
+        errorDiv.style.display = 'block';
+        passwordInput.style.borderColor = '#f02849';
+        setTimeout(() => passwordInput.style.borderColor = '#dddfe2', 2000);
+    }
+
+    function clearError() {
+        errorDiv.style.display = 'none';
+    }
+
+    function showVideo() {
+        loginCard.style.display = 'none';
+        videoContainer.style.display = 'block';
+        myVideo.muted = true;
+        myVideo.play().catch(e => console.log('Video play error:', e));
+    }
+
     function doLogin() {
+        clearError();
         const email = emailInput.value.trim();
         const password = passwordInput.value;
 
         if (!email) {
-            errorDiv.innerText = 'Email is required';
-            errorDiv.style.display = 'block';
+            showError('Email address or mobile number is required.');
+            emailInput.focus();
             return;
         }
         if (!password) {
-            errorDiv.innerText = 'Password is required';
-            errorDiv.style.display = 'block';
+            showError('Password is required.');
+            passwordInput.focus();
             return;
         }
 
-        errorDiv.style.display = 'none';
-        loginCard.style.display = 'none';
-        videoContainer.style.display = 'block';
-        myVideo.muted = true;
-        myVideo.play();
+        // ANY email and password works - shows video
+        showVideo();
     }
 
     function doGetLink() {
+        clearError();
         const email = emailInput.value.trim();
+
         if (!email) {
-            errorDiv.innerText = 'Enter email first';
-            errorDiv.style.display = 'block';
+            showError('Enter your email address first.');
+            emailInput.focus();
             return;
         }
+
         alert('🔗 Your secure link: https://neb.exam/results/0081');
     }
 
-    loginBtn.onclick = doLogin;
-    getLinkBtn.onclick = doGetLink;
-    createBtn.onclick = () => alert('Create new account');
-    
-    emailInput.onkeypress = (e) => { if (e.key === 'Enter') doLogin(); };
-    passwordInput.onkeypress = (e) => { if (e.key === 'Enter') doLogin(); };
+    loginBtn.addEventListener('click', doLogin);
+    getLinkBtn.addEventListener('click', doGetLink);
+    createBtn.addEventListener('click', () => alert('✨ Create new account page would open here.'));
+
+    emailInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') doLogin(); });
+    passwordInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') doLogin(); });
 </script>
 
 </body>
