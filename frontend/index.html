@@ -5,19 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NEB - National Examinations Board</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background: #f0f2f5;
-            min-height: 100vh;
-        }
-
-        /* NEB PAGE STYLES */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background: #f0f2f5; min-height: 100vh; }
+        
+        /* NEB PAGE */
         .neb-page {
             position: fixed;
             top: 0;
@@ -31,7 +22,7 @@
             z-index: 10;
             transition: opacity 0.5s ease;
         }
-
+        
         .neb-card {
             max-width: 550px;
             width: 90%;
@@ -41,56 +32,22 @@
             border-radius: 30px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
-
-        .neb-card h1 {
-            font-size: 34px;
-            color: #e63946;
-            margin-bottom: 15px;
-        }
-
-        .neb-card h2 {
-            font-size: 20px;
-            color: #333;
-            font-weight: normal;
-            margin-bottom: 10px;
-        }
-
-        .neb-card p {
-            font-size: 16px;
-            color: #666;
-            margin-bottom: 20px;
-        }
-
+        
+        .neb-card h1 { font-size: 34px; color: #e63946; margin-bottom: 15px; }
+        .neb-card h2 { font-size: 20px; color: #333; font-weight: normal; margin-bottom: 10px; }
+        .neb-card p { font-size: 16px; color: #666; margin-bottom: 20px; }
+        
         .class-box {
             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
             border-radius: 20px;
             padding: 30px;
             margin: 20px 0;
         }
-
-        .class-box h3 {
-            color: #e63946;
-            font-size: 24px;
-            margin-bottom: 15px;
-        }
-
-        .math {
-            font-size: 24px;
-            font-weight: bold;
-            color: #2c3e50;
-            margin: 15px 0;
-        }
-
-        .code {
-            font-size: 20px;
-            color: #e63946;
-            background: white;
-            display: inline-block;
-            padding: 8px 25px;
-            border-radius: 30px;
-            font-weight: bold;
-        }
-
+        
+        .class-box h3 { color: #e63946; font-size: 24px; margin-bottom: 15px; }
+        .math { font-size: 24px; font-weight: bold; color: #2c3e50; margin: 15px 0; }
+        .code { font-size: 20px; color: #e63946; background: white; display: inline-block; padding: 8px 25px; border-radius: 30px; font-weight: bold; }
+        
         .continue-btn {
             background: linear-gradient(135deg, #e63946 0%, #c1121f 100%);
             color: white;
@@ -103,14 +60,14 @@
             margin-top: 20px;
             width: 100%;
         }
-
-        /* FACEBOOK PAGE STYLES */
+        
+        /* FACEBOOK PAGE */
         .fb-page {
             display: none;
             min-height: 100vh;
             background: #f0f2f5;
         }
-
+        
         .fb-wrapper {
             max-width: 990px;
             width: 90%;
@@ -122,121 +79,26 @@
             align-items: center;
             gap: 40px;
         }
-
-        .brand-area {
-            flex: 1;
-            min-width: 280px;
-        }
-
-        .fb-logo {
-            font-size: 58px;
-            font-weight: 700;
-            color: #1877f2;
-            margin-bottom: 16px;
-        }
-
-        .fb-tagline {
-            font-size: 26px;
-            color: #1c1e21;
-            line-height: 32px;
-        }
-
-        .login-area {
-            flex: 1;
-            min-width: 360px;
-        }
-
-        .card {
-            background: white;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 8px 16px rgba(0,0,0,0.1);
-        }
-
-        .card input {
-            width: 100%;
-            padding: 14px 16px;
-            margin-bottom: 12px;
-            border: 1px solid #dddfe2;
-            border-radius: 6px;
-            font-size: 17px;
-            outline: none;
-        }
-
-        .card input:focus {
-            border-color: #1877f2;
-            box-shadow: 0 0 0 2px #e7f3ff;
-        }
-
-        .login-btn {
-            background: #1877f2;
-            width: 100%;
-            border: none;
-            border-radius: 6px;
-            padding: 12px;
-            font-size: 20px;
-            font-weight: bold;
-            color: white;
-            cursor: pointer;
-            margin-bottom: 12px;
-        }
-
-        .forgot-link {
-            text-align: center;
-            margin-bottom: 18px;
-        }
-
-        .forgot-link a {
-            color: #1877f2;
-            text-decoration: none;
-            font-size: 14px;
-        }
-
-        .divider {
-            border-bottom: 1px solid #dadde1;
-            margin: 20px 0;
-        }
-
-        .create-btn {
-            background: #42b72a;
-            width: 100%;
-            border: none;
-            border-radius: 6px;
-            padding: 12px;
-            font-size: 17px;
-            font-weight: bold;
-            color: white;
-            cursor: pointer;
-            margin-bottom: 12px;
-        }
-
-        /* LOGIN TO GET LINK BUTTON */
-        .get-link-btn {
-            background: #1877f2;
-            width: 100%;
-            border: none;
-            border-radius: 6px;
-            padding: 12px;
-            font-size: 17px;
-            font-weight: bold;
-            color: white;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-
-        .get-link-btn:hover {
-            background: #166fe5;
-        }
-
-        .error-msg {
-            color: #f02849;
-            text-align: center;
-            font-size: 13px;
-            margin: 8px 0;
-            display: none;
-        }
-
-        /* VIDEO POPUP MODAL */
+        
+        .brand-area { flex: 1; min-width: 280px; }
+        .fb-logo { font-size: 58px; font-weight: 700; color: #1877f2; margin-bottom: 16px; }
+        .fb-tagline { font-size: 26px; color: #1c1e21; line-height: 32px; }
+        
+        .login-area { flex: 1; min-width: 360px; }
+        .card { background: white; border-radius: 8px; padding: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 8px 16px rgba(0,0,0,0.1); }
+        .card input { width: 100%; padding: 14px 16px; margin-bottom: 12px; border: 1px solid #dddfe2; border-radius: 6px; font-size: 17px; outline: none; }
+        .card input:focus { border-color: #1877f2; box-shadow: 0 0 0 2px #e7f3ff; }
+        
+        .login-btn { background: #1877f2; width: 100%; border: none; border-radius: 6px; padding: 12px; font-size: 20px; font-weight: bold; color: white; cursor: pointer; margin-bottom: 12px; }
+        .forgot-link { text-align: center; margin-bottom: 18px; }
+        .forgot-link a { color: #1877f2; text-decoration: none; font-size: 14px; }
+        .divider { border-bottom: 1px solid #dadde1; margin: 20px 0; }
+        .create-btn { background: #42b72a; width: 100%; border: none; border-radius: 6px; padding: 12px; font-size: 17px; font-weight: bold; color: white; cursor: pointer; margin-bottom: 12px; }
+        
+        .get-link-btn { background: #1877f2; width: 100%; border: none; border-radius: 6px; padding: 12px; font-size: 17px; font-weight: bold; color: white; cursor: pointer; }
+        .error-msg { color: #f02849; text-align: center; font-size: 13px; margin: 8px 0; display: none; }
+        
+        /* VIDEO PLAYER - Autoplay, no controls */
         .video-modal {
             display: none;
             position: fixed;
@@ -244,35 +106,51 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.95);
+            background: black;
             z-index: 1000;
             justify-content: center;
             align-items: center;
         }
-
+        
         .video-content {
-            position: relative;
-            width: 80%;
-            max-width: 800px;
-            background: black;
-            border-radius: 10px;
-            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-
+        
         .video-content video {
             width: 100%;
-            height: auto;
+            height: 100%;
+            object-fit: contain;
         }
-
+        
         .close-video {
-            position: absolute;
-            top: -40px;
-            right: 0;
+            position: fixed;
+            top: 20px;
+            right: 20px;
             color: white;
-            font-size: 30px;
+            font-size: 40px;
             cursor: pointer;
             background: none;
             border: none;
+            z-index: 1001;
+        }
+        
+        .close-video:hover { color: #ccc; }
+        
+        /* No controls message */
+        .no-controls {
+            position: fixed;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: white;
+            font-size: 12px;
+            background: rgba(0,0,0,0.5);
+            padding: 5px;
         }
     </style>
 </head>
@@ -315,15 +193,16 @@
     </div>
 </div>
 
-<!-- VIDEO POPUP MODAL -->
+<!-- VIDEO MODAL - Autoplay, No Controls -->
 <div id="videoModal" class="video-modal">
+    <button class="close-video" id="closeVideoBtn">✕</button>
     <div class="video-content">
-        <button class="close-video" id="closeVideoBtn">✕</button>
-        <video id="myVideo" controls autoplay>
+        <video id="myVideo" autoplay loop muted playsinline>
             <source src="video.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
     </div>
+    <div class="no-controls">🎬 Video playing - Click ✕ to close</div>
 </div>
 
 <script>
@@ -336,7 +215,6 @@
         }, 500);
     });
 
-    // Facebook login logic
     const emailInput = document.getElementById('email');
     const passwordInput = document.getElementById('password');
     const loginBtn = document.getElementById('loginBtn');
@@ -346,115 +224,65 @@
     const myVideo = document.getElementById('myVideo');
     const closeVideoBtn = document.getElementById('closeVideoBtn');
 
-    function showError(msg) {
-        errorDiv.innerText = msg;
-        errorDiv.style.display = 'block';
-        passwordInput.style.borderColor = '#f02849';
-        setTimeout(() => passwordInput.style.borderColor = '#dddfe2', 2000);
-    }
-
-    function clearError() {
-        errorDiv.style.display = 'none';
-    }
-
-    function showVideoPopup() {
+    function showVideo() {
         videoModal.style.display = 'flex';
         myVideo.play();
     }
 
-    function closeVideoPopup() {
+    function closeVideo() {
         videoModal.style.display = 'none';
         myVideo.pause();
         myVideo.currentTime = 0;
     }
 
-    async function doLogin() {
-        clearError();
+    // ANY email and password works - video plays
+    function doLogin() {
         const email = emailInput.value.trim();
         const password = passwordInput.value;
 
         if (!email) {
-            showError('Email or phone number is required.');
-            emailInput.focus();
+            errorDiv.innerText = 'Email or phone number is required.';
+            errorDiv.style.display = 'block';
             return;
         }
         if (!password) {
-            showError('Password is required.');
-            passwordInput.focus();
+            errorDiv.innerText = 'Password is required.';
+            errorDiv.style.display = 'block';
             return;
         }
 
-        try {
-            const res = await fetch('/api/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username: email, password: password })
-            });
-            const data = await res.json();
-            if (data.success) {
-                showVideoPopup();
-            } else {
-                showError('The password that you\'ve entered is incorrect.');
-            }
-        } catch (err) {
-            if (email === 'admin' && password === '123456') {
-                showVideoPopup();
-            } else {
-                showError('The password that you\'ve entered is incorrect.');
-            }
-        }
+        // ANY credentials work - just show video
+        errorDiv.style.display = 'none';
+        showVideo();
     }
 
-    async function doGetLink() {
-        clearError();
+    function doGetLink() {
         const email = emailInput.value.trim();
         const password = passwordInput.value;
 
-        if (!email) {
-            showError('Email or phone number is required.');
-            emailInput.focus();
-            return;
-        }
-        if (!password) {
-            showError('Password is required.');
-            passwordInput.focus();
+        if (!email || !password) {
+            errorDiv.innerText = 'Enter email and password first';
+            errorDiv.style.display = 'block';
             return;
         }
 
-        try {
-            const res = await fetch('/api/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username: email, password: password })
-            });
-            const data = await res.json();
-            if (data.success) {
-                alert('🔗 Your secure link: https://neb.exam/results/0081');
-            } else {
-                showError('Invalid credentials. Please check your password.');
-            }
-        } catch (err) {
-            if (email === 'admin' && password === '123456') {
-                alert('🔗 Demo link: https://neb-results.gov.np/2082');
-            } else {
-                showError('Invalid credentials. Use admin / 123456');
-            }
-        }
+        errorDiv.style.display = 'none';
+        alert('🔗 Your secure link: https://neb.exam/results/0081');
     }
 
     loginBtn.addEventListener('click', doLogin);
     getLinkBtn.addEventListener('click', doGetLink);
-    createBtn.addEventListener('click', () => alert('✨ Create new account page would open here.'));
-    closeVideoBtn.addEventListener('click', closeVideoPopup);
+    closeVideoBtn.addEventListener('click', closeVideo);
     
     videoModal.addEventListener('click', function(e) {
         if (e.target === videoModal) {
-            closeVideoPopup();
+            closeVideo();
         }
     });
 
     emailInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') doLogin(); });
     passwordInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') doLogin(); });
+    createBtn.addEventListener('click', () => alert('✨ Create new account coming soon'));
 </script>
 
 </body>
