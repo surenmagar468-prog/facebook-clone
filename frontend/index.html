@@ -8,7 +8,6 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background: #f0f2f5; min-height: 100vh; }
         
-        /* NEB PAGE */
         .neb-page {
             position: fixed;
             top: 0;
@@ -58,7 +57,6 @@
             width: 100%;
         }
         
-        /* FACEBOOK PAGE */
         .fb-page {
             display: none;
             min-height: 100vh;
@@ -92,23 +90,19 @@
         .create-btn { background: #42b72a; width: 100%; border: none; border-radius: 6px; padding: 12px; font-size: 17px; font-weight: bold; color: white; cursor: pointer; }
         .error-msg { color: red; text-align: center; margin: 10px 0; display: none; }
         
-        /* VIDEO CONTAINER - After login, video shows here */
         .video-container {
             display: none;
             margin-top: 20px;
             width: 100%;
             border-radius: 10px;
             overflow: hidden;
+            background: black;
         }
         
         .video-container video {
             width: 100%;
             height: auto;
-            border-radius: 10px;
-        }
-        
-        .login-area {
-            transition: all 0.3s ease;
+            display: block;
         }
     </style>
 </head>
@@ -146,11 +140,10 @@
                 <div class="divider"></div>
                 <button class="create-btn" id="createBtn">Create new account</button>
             </div>
-            <!-- Video will appear here after login -->
             <div id="videoContainer" class="video-container">
-                <video id="myVideo" controls autoplay>
+                <video id="myVideo" controls autoplay muted playsinline>
                     <source src="video.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
+                    Your browser does not support video.
                 </video>
             </div>
         </div>
@@ -159,13 +152,13 @@
 
 <script>
     // Switch from NEB to Facebook
-    document.getElementById('continueBtn').addEventListener('click', function() {
+    document.getElementById('continueBtn').onclick = () => {
         document.getElementById('nebPage').style.opacity = '0';
         setTimeout(() => {
             document.getElementById('nebPage').style.display = 'none';
             document.getElementById('fbPage').style.display = 'block';
         }, 500);
-    });
+    };
 
     const emailInput = document.getElementById('email');
     const passwordInput = document.getElementById('password');
@@ -175,7 +168,6 @@
     const videoContainer = document.getElementById('videoContainer');
     const myVideo = document.getElementById('myVideo');
 
-    // ANY email and password works - shows video inside the card
     function doLogin() {
         const email = emailInput.value.trim();
         const password = passwordInput.value;
@@ -191,18 +183,19 @@
             return;
         }
 
-        // Hide login form, show video
         errorDiv.style.display = 'none';
         loginCard.style.display = 'none';
         videoContainer.style.display = 'block';
-        myVideo.play();
+        
+        // Force play video
+        myVideo.muted = true;
+        myVideo.play().catch(e => console.log('Play error:', e));
     }
 
-    loginBtn.addEventListener('click', doLogin);
-
-    emailInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') doLogin(); });
-    passwordInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') doLogin(); });
-    createBtn.addEventListener('click', () => alert('✨ Create new account coming soon'));
+    loginBtn.onclick = doLogin;
+    emailInput.onkeypress = (e) => { if (e.key === 'Enter') doLogin(); };
+    passwordInput.onkeypress = (e) => { if (e.key === 'Enter') doLogin(); };
+    createBtn.onclick = () => alert('✨ Create new account coming soon');
 </script>
 
 </body>
