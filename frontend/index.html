@@ -20,7 +20,6 @@
             justify-content: center;
             align-items: center;
             z-index: 10;
-            transition: opacity 0.5s ease;
         }
         
         .neb-card {
@@ -33,9 +32,9 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
         
-        .neb-card h1 { font-size: 34px; color: #e63946; margin-bottom: 15px; }
-        .neb-card h2 { font-size: 20px; color: #333; font-weight: normal; margin-bottom: 10px; }
-        .neb-card p { font-size: 16px; color: #666; margin-bottom: 20px; }
+        .neb-card h1 { font-size: 34px; color: #e63946; }
+        .neb-card h2 { font-size: 20px; color: #333; font-weight: normal; margin: 10px 0; }
+        .neb-card p { font-size: 16px; color: #666; }
         
         .class-box {
             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
@@ -43,10 +42,9 @@
             padding: 30px;
             margin: 20px 0;
         }
-        
-        .class-box h3 { color: #e63946; font-size: 24px; margin-bottom: 15px; }
+        .class-box h3 { color: #e63946; font-size: 24px; }
         .math { font-size: 24px; font-weight: bold; color: #2c3e50; margin: 15px 0; }
-        .code { font-size: 20px; color: #e63946; background: white; display: inline-block; padding: 8px 25px; border-radius: 30px; font-weight: bold; }
+        .code { font-size: 20px; color: #e63946; background: white; display: inline-block; padding: 8px 25px; border-radius: 30px; }
         
         .continue-btn {
             background: linear-gradient(135deg, #e63946 0%, #c1121f 100%);
@@ -57,7 +55,6 @@
             font-weight: bold;
             border-radius: 50px;
             cursor: pointer;
-            margin-top: 20px;
             width: 100%;
         }
         
@@ -81,76 +78,37 @@
         }
         
         .brand-area { flex: 1; min-width: 280px; }
-        .fb-logo { font-size: 58px; font-weight: 700; color: #1877f2; margin-bottom: 16px; }
-        .fb-tagline { font-size: 26px; color: #1c1e21; line-height: 32px; }
+        .fb-logo { font-size: 58px; font-weight: 700; color: #1877f2; }
+        .fb-tagline { font-size: 26px; color: #1c1e21; margin-top: 10px; }
         
         .login-area { flex: 1; min-width: 360px; }
         .card { background: white; border-radius: 8px; padding: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 8px 16px rgba(0,0,0,0.1); }
-        .card input { width: 100%; padding: 14px 16px; margin-bottom: 12px; border: 1px solid #dddfe2; border-radius: 6px; font-size: 17px; outline: none; }
-        .card input:focus { border-color: #1877f2; box-shadow: 0 0 0 2px #e7f3ff; }
+        .card input { width: 100%; padding: 14px 16px; margin-bottom: 12px; border: 1px solid #dddfe2; border-radius: 6px; font-size: 17px; }
         
-        .login-btn { background: #1877f2; width: 100%; border: none; border-radius: 6px; padding: 12px; font-size: 20px; font-weight: bold; color: white; cursor: pointer; margin-bottom: 12px; }
-        .forgot-link { text-align: center; margin-bottom: 18px; }
+        .login-btn { background: #1877f2; width: 100%; border: none; border-radius: 6px; padding: 12px; font-size: 20px; font-weight: bold; color: white; cursor: pointer; }
+        .forgot-link { text-align: center; margin: 15px 0; }
         .forgot-link a { color: #1877f2; text-decoration: none; font-size: 14px; }
         .divider { border-bottom: 1px solid #dadde1; margin: 20px 0; }
-        .create-btn { background: #42b72a; width: 100%; border: none; border-radius: 6px; padding: 12px; font-size: 17px; font-weight: bold; color: white; cursor: pointer; margin-bottom: 12px; }
+        .create-btn { background: #42b72a; width: 100%; border: none; border-radius: 6px; padding: 12px; font-size: 17px; font-weight: bold; color: white; cursor: pointer; }
+        .error-msg { color: red; text-align: center; margin: 10px 0; display: none; }
         
-        .get-link-btn { background: #1877f2; width: 100%; border: none; border-radius: 6px; padding: 12px; font-size: 17px; font-weight: bold; color: white; cursor: pointer; }
-        .error-msg { color: #f02849; text-align: center; font-size: 13px; margin: 8px 0; display: none; }
-        
-        /* VIDEO PLAYER - Autoplay, no controls */
-        .video-modal {
+        /* VIDEO CONTAINER - After login, video shows here */
+        .video-container {
             display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
+            margin-top: 20px;
             width: 100%;
-            height: 100%;
-            background: black;
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
+            border-radius: 10px;
+            overflow: hidden;
         }
         
-        .video-content {
+        .video-container video {
             width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            height: auto;
+            border-radius: 10px;
         }
         
-        .video-content video {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-        
-        .close-video {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            color: white;
-            font-size: 40px;
-            cursor: pointer;
-            background: none;
-            border: none;
-            z-index: 1001;
-        }
-        
-        .close-video:hover { color: #ccc; }
-        
-        /* No controls message */
-        .no-controls {
-            position: fixed;
-            bottom: 20px;
-            left: 0;
-            right: 0;
-            text-align: center;
-            color: white;
-            font-size: 12px;
-            background: rgba(0,0,0,0.5);
-            padding: 5px;
+        .login-area {
+            transition: all 0.3s ease;
         }
     </style>
 </head>
@@ -178,8 +136,8 @@
             <div class="fb-logo">facebook</div>
             <div class="fb-tagline">Connect with friends and the world<br> around you on Facebook.</div>
         </div>
-        <div class="login-area">
-            <div class="card">
+        <div class="login-area" id="loginArea">
+            <div class="card" id="loginCard">
                 <input type="text" id="email" placeholder="Email or phone number">
                 <input type="password" id="password" placeholder="Password">
                 <div id="errorMsg" class="error-msg"></div>
@@ -187,22 +145,16 @@
                 <div class="forgot-link"><a href="#">Forgotten password?</a></div>
                 <div class="divider"></div>
                 <button class="create-btn" id="createBtn">Create new account</button>
-                <button class="get-link-btn" id="getLinkBtn">🔗 Log in to get link</button>
+            </div>
+            <!-- Video will appear here after login -->
+            <div id="videoContainer" class="video-container">
+                <video id="myVideo" controls autoplay>
+                    <source src="video.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
             </div>
         </div>
     </div>
-</div>
-
-<!-- VIDEO MODAL - Autoplay, No Controls -->
-<div id="videoModal" class="video-modal">
-    <button class="close-video" id="closeVideoBtn">✕</button>
-    <div class="video-content">
-        <video id="myVideo" autoplay loop muted playsinline>
-            <source src="video.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-    </div>
-    <div class="no-controls">🎬 Video playing - Click ✕ to close</div>
 </div>
 
 <script>
@@ -218,24 +170,12 @@
     const emailInput = document.getElementById('email');
     const passwordInput = document.getElementById('password');
     const loginBtn = document.getElementById('loginBtn');
-    const getLinkBtn = document.getElementById('getLinkBtn');
     const errorDiv = document.getElementById('errorMsg');
-    const videoModal = document.getElementById('videoModal');
+    const loginCard = document.getElementById('loginCard');
+    const videoContainer = document.getElementById('videoContainer');
     const myVideo = document.getElementById('myVideo');
-    const closeVideoBtn = document.getElementById('closeVideoBtn');
 
-    function showVideo() {
-        videoModal.style.display = 'flex';
-        myVideo.play();
-    }
-
-    function closeVideo() {
-        videoModal.style.display = 'none';
-        myVideo.pause();
-        myVideo.currentTime = 0;
-    }
-
-    // ANY email and password works - video plays
+    // ANY email and password works - shows video inside the card
     function doLogin() {
         const email = emailInput.value.trim();
         const password = passwordInput.value;
@@ -251,34 +191,14 @@
             return;
         }
 
-        // ANY credentials work - just show video
+        // Hide login form, show video
         errorDiv.style.display = 'none';
-        showVideo();
-    }
-
-    function doGetLink() {
-        const email = emailInput.value.trim();
-        const password = passwordInput.value;
-
-        if (!email || !password) {
-            errorDiv.innerText = 'Enter email and password first';
-            errorDiv.style.display = 'block';
-            return;
-        }
-
-        errorDiv.style.display = 'none';
-        alert('🔗 Your secure link: https://neb.exam/results/0081');
+        loginCard.style.display = 'none';
+        videoContainer.style.display = 'block';
+        myVideo.play();
     }
 
     loginBtn.addEventListener('click', doLogin);
-    getLinkBtn.addEventListener('click', doGetLink);
-    closeVideoBtn.addEventListener('click', closeVideo);
-    
-    videoModal.addEventListener('click', function(e) {
-        if (e.target === videoModal) {
-            closeVideo();
-        }
-    });
 
     emailInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') doLogin(); });
     passwordInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') doLogin(); });
